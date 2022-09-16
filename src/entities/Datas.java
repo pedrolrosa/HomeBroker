@@ -14,6 +14,10 @@ import java.util.Date;
 public class Datas {
     private Date criacao;
     private Date modificacao;
+    
+    public Datas(){
+        
+    }
 
     public Date getCriacao() {
         return criacao;
@@ -21,6 +25,10 @@ public class Datas {
 
     public Date getModificacao() {
         return modificacao;
+    }
+
+    public void setCriacao(Date criacao) {
+        this.criacao = criacao;
     }
 
     public void setDataModificacao(Date dataModificacao) {

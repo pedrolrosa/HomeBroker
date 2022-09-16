@@ -12,13 +12,30 @@ import java.math.BigDecimal;
  * @author pedro
  */
 public class Transacao {
+    private static int nTransacao;
+    private int id;
+    private TiposOperacao tipo;
+    private String descricao;
+    
+    private BigDecimal valor;
+    
+    private Datas data;
     private Conta origem;
     private Conta destino;
-    private Operacao operacao;
     
     public void addTransacao(Conta origem, Conta destino, BigDecimal valor, TiposOperacao tipo){
+        this.id = nTransacao + 1;
+        nTransacao++;
         this.origem = origem;
         this.destino = destino;
-        this.operacao.addOperacao(tipo, valor);
+        this.tipo = tipo;
+        this.valor = valor;
     }
+
+    @Override
+    public String toString() {
+        return "Origem: "+ origem.getId() +", Destino: "+ destino.getId() +", Tipo: "+ this.tipo + ", Valor: "+ this.valor;
+    }
+    
+    
 }

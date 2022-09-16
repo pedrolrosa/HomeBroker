@@ -15,14 +15,12 @@ public class Cliente {
     private TipoUsuario tipo;
     private Datas data;
     
-    private Conta conta;
-    
     public Cliente() {
         this.id = Cliente.totalCliente+1;
         Cliente.totalCliente++;
     }
     
-    public Cliente(String nome, String endereco, String cpf, String telefone, String login, String senha, TipoUsuario tipo, Conta conta) {
+    public Cliente(String nome, String endereco, String cpf, String telefone, String login, String senha, TipoUsuario tipo) {
         this.id = Cliente.totalCliente+1;
         Cliente.totalCliente++;
         this.nome = nome;
@@ -32,7 +30,6 @@ public class Cliente {
         this.login = login;
         this.senha = senha;
         this.tipo = tipo;
-        this.conta = conta;
     }
 
     public Integer getId() {
@@ -73,10 +70,6 @@ public class Cliente {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public void setConta(Conta conta) {
-        this.conta = conta;
     }
 
     @Override

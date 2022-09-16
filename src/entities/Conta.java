@@ -20,17 +20,25 @@ public class Conta {
     private Datas data;
     
     private Cliente titular;
-    private int nTransacao = 0;
-    private Transacao[] extrato;
-    
     
     public Conta(){
         this.id = Conta.totalConta + 1;
         Conta.totalConta++;
+        //this.data.setCriacao();
     }
 
     public Conta(BigDecimal saldo) {
+        this.id = Conta.totalConta + 1;
+        Conta.totalConta++;
         this.saldo = saldo;
+        
+        if(this.titular.getTipo() == TipoUsuario.ADM){
+            
+        }
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setTitular(Cliente titular) {
@@ -38,15 +46,13 @@ public class Conta {
     }
     
     public void deposito(BigDecimal valor){
-        saldo.add(valor);
-        this.extrato[nTransacao].addTransacao(null, this, valor, TiposOperacao.DEPOSITO);
-        nTransacao++;
+        saldo = saldo.add(valor);
+        
     }
     
     public void saque(BigDecimal valor){
-        saldo.subtract(valor);
-        this.extrato[nTransacao].addTransacao(this, null, valor, TiposOperacao.SAQUE);
-        nTransacao++;
+        saldo = saldo.subtract(valor);
+        
     }
     
     public BigDecimal saldo(){
@@ -54,16 +60,19 @@ public class Conta {
     }
     
     public void pagamento(BigDecimal valor, Conta destino){
-        this.saldo.subtract(valor);
-        destino.saldo.add(valor);
-        this.extrato[nTransacao].addTransacao(this, destino, valor, TiposOperacao.PAGAMENTO);
-        nTransacao++;
+        saldo = this.saldo.subtract(valor);
+        destino.saldo = destino.saldo.add(valor);
+        
     }
     
     public void transferencia(BigDecimal valor, Conta destino){
-        this.saldo.subtract(valor);
-        destino.saldo.add(valor);
-        this.extrato[nTransacao].addTransacao(this, destino, valor, TiposOperacao.TRANSFERENCIA);
-        nTransacao++;
+        saldo = this.saldo.subtract(valor);
+        destino.saldo = destino.saldo.add(valor);
+        
+    }
+
+    @Override
+    public String toString() {
+        return "Conta{" + "id=" + id + ", saldo=" + saldo +", titular: "+ this.titular.getNome();
     }
 }
