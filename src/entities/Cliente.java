@@ -3,6 +3,7 @@ package entities;
 public class Cliente {
     private static int totalCliente;
     private int id;
+    
     private String nome;
     private String endereco;
     private String cpf;
@@ -66,8 +67,20 @@ public class Cliente {
         return tipo;
     } 
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{id="+ id + ", nome=" + nome + ", endereco=" + endereco + ", cpf=" + cpf + ", telefone=" + telefone + ", login=" + login + ", senha=" + senha + ", tipo=" + tipo + ", data=" + data + ", conta=" + conta + '}';
+        return "Cliente{id="+ id + ", nome=" + nome + ", endereco=" + endereco + ", cpf=" + cpf + ", telefone=" + telefone + ", login=" + login + ", senha=" + senha + ", tipo=" + tipo + '}';
     }
 }

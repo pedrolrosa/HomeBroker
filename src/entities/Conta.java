@@ -14,18 +14,27 @@ import java.math.BigDecimal;
 public class Conta {
     private static int totalConta;
     private int id;
+    
     private BigDecimal saldo;
     
     private Datas data;
     
     private Cliente titular;
     private int nTransacao = 0;
-    private Transacao extrato[];
+    private Transacao[] extrato;
     
     
     public Conta(){
         this.id = Conta.totalConta + 1;
         Conta.totalConta++;
+    }
+
+    public Conta(BigDecimal saldo) {
+        this.saldo = saldo;
+    }
+
+    public void setTitular(Cliente titular) {
+        this.titular = titular;
     }
     
     public void deposito(BigDecimal valor){
