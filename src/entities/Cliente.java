@@ -52,12 +52,9 @@ public class Cliente {
         return telefone;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public String getSenha() {
-        return senha;
+    public Boolean getLogin(String login, String senha){
+        if(this.login.equals(login) && this.senha.equals(senha)) return true;
+        else return false;
     }
 
     public TipoUsuario getTipo() {

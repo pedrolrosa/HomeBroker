@@ -32,9 +32,6 @@ public class Conta {
         Conta.totalConta++;
         this.saldo = saldo;
         
-        if(this.titular.getTipo() == TipoUsuario.ADM){
-            
-        }
     }
 
     public int getId() {
