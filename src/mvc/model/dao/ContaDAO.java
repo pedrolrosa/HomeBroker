@@ -15,6 +15,27 @@ public class ContaDAO {
     final int nConta = 5;
     private Conta conta[] = new Conta[nConta];
     
+    public boolean vazio(){
+        for(int i =0; i < conta.length; i++){
+            if(conta[i] != null) return false;
+        }
+        return true;
+    }
+    
+    public boolean cheio(){
+        for(int i =0; i < conta.length; i++){
+            if(conta[i] == null) return false;
+        }
+        return true;
+    }
+    
+    public int pegaPosicao(){
+        for(int i =0; i < conta.length; i++){
+            if(conta[i] == null) return i;
+        }
+        return -1;
+    }
+    
     public void create(){
         
     }

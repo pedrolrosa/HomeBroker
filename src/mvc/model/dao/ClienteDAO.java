@@ -18,6 +18,20 @@ public class ClienteDAO {
     final static int nCliente = 5;
     private Cliente usuario[] = new Cliente[nCliente];
     
+    public boolean vazio(){
+        for(int i =0; i < usuario.length; i++){
+            if(usuario[i] != null) return false;
+        }
+        return true;
+    }
+    
+    public boolean cheio(){
+        for(int i =0; i < usuario.length; i++){
+            if(usuario[i] == null) return false;
+        }
+        return true;
+    }
+    
     public int pegaPosicao(){
         for(int i =0; i < usuario.length; i++){
             if(usuario[i] == null) return i;
@@ -28,12 +42,14 @@ public class ClienteDAO {
     public void create(String nome, String cpf, String endereco, String telefone, String login, String senha, TipoUsuario tipo, Conta conta){
         final int pos = this.pegaPosicao();
         
-        usuario[pos].setInfo(nome, cpf, endereco, telefone);
-        usuario[pos].setLogin(login, senha);
-        usuario[pos].setTipo(tipo);
-        usuario[pos].setConta(conta);
+        Cliente novo = new Cliente();
         
+        novo.setInfo(nome, cpf, endereco, telefone);
+        novo.setLogin(login, senha);
+        novo.setTipo(tipo);
+        novo.setConta(conta);
         
+        usuario[pos] = novo;
     }
     
     public void read(){
