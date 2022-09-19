@@ -15,7 +15,7 @@ public class Cliente {
     private String senha;
     
     private TipoUsuario tipo;
-    private Data data;
+    public Data data;
     
     private Conta conta;
     

@@ -5,7 +5,10 @@
  */
 package mvc.model.dao;
 
+import java.util.Date;
 import mvc.model.entities.Cliente;
+import mvc.model.entities.Conta;
+import mvc.model.entities.TipoUsuario;
 
 /**
  *
@@ -22,9 +25,26 @@ public class ClienteDAO {
         return -1;
     }
     
-    public void adiciona(String nome){
+    public void create(String nome, String cpf, String endereco, String telefone, String login, String senha, TipoUsuario tipo, Conta conta){
         final int pos = this.pegaPosicao();
         
-        //usuario[pos].setInfo(nome);
+        usuario[pos].setInfo(nome, cpf, endereco, telefone);
+        usuario[pos].setLogin(login, senha);
+        usuario[pos].setTipo(tipo);
+        usuario[pos].setConta(conta);
+        
+        
+    }
+    
+    public void read(){
+        
+    }
+    
+    public void update(){
+        
+    }
+    
+    public void delete(){
+        
     }
 }

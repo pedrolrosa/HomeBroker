@@ -5,10 +5,29 @@
  */
 package mvc.model.dao;
 
+import mvc.model.entities.Conta;
+
 /**
  *
  * @author pedro
  */
 public class ContaDAO {
+    final int nConta = 5;
+    private Conta conta[] = new Conta[nConta];
     
+    public void create(){
+        
+    }
+    
+    public void read(){
+        
+    }
+    
+    public void update(){
+        
+    }
+    
+    public void delete(){
+        
+    }
 }
