@@ -3,14 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/t1/HomeBroker/src/entities/Cliente.java</file>
-            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/t1/HomeBroker/src/entities/Conta.java</file>
-            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/t1/HomeBroker/src/entities/TipoUsuario.java</file>
-            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/t1/HomeBroker/src/entities/Datas.java</file>
-            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/t1/HomeBroker/src/application/Menu.java</file>
-            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/t1/HomeBroker/src/entities/Operacao.java</file>
-            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/t1/HomeBroker/src/application/Program.java</file>
-            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/t1/HomeBroker/src/entities/TiposOperacao.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/control/Program.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/model/entities/Cliente.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/model/dao/ClienteDAO.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/model/dao/ContaDAO.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/model/entities/TipoUsuario.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/model/entities/Data.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/model/dao/OperacaoDAO.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/model/entities/TiposOperacao.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/view/GUI.java</file>
+            <file>file:/C:/Users/Aluno/Downloads/HomeBroker/src/mvc/model/entities/Conta.java</file>
         </group>
     </open-files>
 </project-private>

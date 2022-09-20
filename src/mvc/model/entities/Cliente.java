@@ -22,6 +22,12 @@ public class Cliente {
     public Cliente() {
         this.id = ++Cliente.serial;
     }
+    
+    public Cliente(String login, String senha){
+        this.id = ++Cliente.serial;
+        this.login = login;
+        this.senha = senha;
+    }
 
     public Integer getId() {
         return id;
@@ -43,9 +49,12 @@ public class Cliente {
         return telefone;
     }
 
-    public Boolean getLogin(String login, String senha){
-        if(this.login.equals(login) && this.senha.equals(senha)) return true;
-        else return false;
+    public String getLogin() {
+        return login;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public TipoUsuario getTipo() {

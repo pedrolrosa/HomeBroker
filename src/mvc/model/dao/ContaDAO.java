@@ -16,15 +16,19 @@ public class ContaDAO {
     private Conta conta[] = new Conta[nConta];
     
     public boolean vazio(){
-        for(int i =0; i < conta.length; i++){
-            if(conta[i] != null) return false;
+        for (Conta conta1 : conta) {
+            if (conta1 != null) {
+                return false;
+            }
         }
         return true;
     }
     
     public boolean cheio(){
-        for(int i =0; i < conta.length; i++){
-            if(conta[i] == null) return false;
+        for (Conta conta1 : conta) {
+            if (conta1 == null) {
+                return false;
+            }
         }
         return true;
     }
