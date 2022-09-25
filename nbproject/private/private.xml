@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/ContaDAO.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Ordem.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Operacao.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Cliente.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Ativo.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/enums/TipoUsuario.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/enums/TipoOperacao.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/OrdemDAO.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/OperacaoDAO.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/view/GUI.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/AtivoDAO.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/control/Program.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/ClienteDAO.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Data.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/enums/MeioOperacao.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Conta.java</file>
+        </group>
+    </open-files>
+</project-private>
