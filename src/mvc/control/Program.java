@@ -17,14 +17,24 @@ public class Program {
     GUI menu = new GUI();
         
     public Program(){
-        usuario.create("Joao", "25302", "Jardim Uberaba", "+55 34 99345821", "jao chocolate branco", "oaj", TipoUsuario.ADM);
+        
+        // adm teste
+        usuario.create("Joao", "25302", "Jardim Uberaba", "+55 34 99345821", "adm", "123", TipoUsuario.ADM);
+        
+        // usuario teste
+        usuario.create("Pedro", "32145", "Vallim", "+55 34 99845404", "ped", "321", TipoUsuario.COMUM);
         
         int esc;
+        boolean on = true;
         
-        do{
+        while(on){
             esc = menu.entrar(atual);    
             
             switch(esc){
+                case 0:
+                    on = false;
+                break;
+                
                 case 1:{
                     atual = menu.login(usuario);
                 break;}
@@ -38,14 +48,30 @@ public class Program {
                 break;}
             }
             
-            if(esc == 1 || esc == 2){
+            if(atual != null || esc == 1 || esc == 2){
                 if(atual.getTipo() == TipoUsuario.ADM){
-                    //opção adm
+                    while(esc != 0){
+                        esc = menu.telaADM();
+                        
+                        switch(esc){
+                            case 1:{
+                                menu.cadastraCliente(usuario);
+                            break;}
+                        }
+                    }
                 } else {
-                    //opção comum
+                    while(esc != 0){
+                        esc = menu.telaCOMUM();
+                        
+                        switch(esc){
+                            case 1:{
+                                menu.cadastraConta(atual, conta);
+                            break;}
+                        }
+                    }                    
                 }
             }
-        }while(esc != 0);
+        };
     }
         
 

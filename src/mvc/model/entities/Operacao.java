@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class Operacao {
     private static int serial;
-    private int id;
+    private final int id;
     
     private BigDecimal valor;
     private TiposOperacao tipo;
@@ -60,6 +60,10 @@ public class Operacao {
         this.valor = valor;
         this.tipo = tipo;
         this.descricao = descricao;
+    }
+    
+    public void setInfo(BigDecimal valor){
+        this.valor = valor;
     }
     
     public void setAccounts(Conta origem, Conta destino){
@@ -118,6 +122,4 @@ public class Operacao {
     public String toString() {
         return "Origem: "+ origem.getId() +", Destino: "+ destino.getId() +", Tipo: "+ this.tipo + ", Valor: "+ this.valor;
     }
-    
-    
 }

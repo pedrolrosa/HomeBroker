@@ -5,7 +5,10 @@
  */
 package mvc.model.dao;
 
+import java.math.BigDecimal;
+import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
+import mvc.model.entities.TiposOperacao;
 
 /**
  *
@@ -13,42 +16,81 @@ import mvc.model.entities.Operacao;
  */
 public class OperacaoDAO {
     final int nOperacao = 100;
-    private Operacao operacao[] = new Operacao[nOperacao];
+    private final Operacao operacao[] = new Operacao[nOperacao];
+    
+    public Operacao busca(int id){
+        for(Operacao aux : operacao){
+            if(aux.getId() == id) return aux;
+        }
+        return null;
+    }
     
     public boolean vazio(){
-        for(int i =0; i < operacao.length; i++){
-            if(operacao[i] != null) return false;
+        for (Operacao operacao1 : operacao) {
+            if (operacao1 != null) {
+                return false;
+            }
         }
         return true;
     }
     
     public boolean cheio(){
-        for(int i =0; i < operacao.length; i++){
-            if(operacao[i] == null) return false;
+        for (Operacao operacao1 : operacao) {
+            if (operacao1 == null) {
+                return false;
+            }
         }
         return true;
     }
     
-    public int pegaPosicao(){
+    public int pegaPosicaoVazia(){
         for(int i =0; i < operacao.length; i++){
             if(operacao[i] == null) return i;
         }
         return -1;
     }
     
-    public void create(){
+    public void create(Conta origem, Conta destino, BigDecimal valor, TiposOperacao tipo, String descricao){
+        final int pos = this.pegaPosicaoVazia();
         
+        Operacao novo = new Operacao();
+        
+        novo.setAccounts(origem, destino);
+        novo.setInfo(valor, tipo, descricao);
+        
+        operacao[pos] = novo;
     }
     
-    public void read(){
-        
+    public String read(){
+        if(!(this.vazio())){
+            String result = "";
+            
+            for(Operacao aux : operacao){
+                if(aux != null) result.concat(aux.toString()+ "\n");
+            }
+            
+            return result;
+        } else {
+            return "Nenhuma operacao existente";
+        }
     }
     
-    public void update(){
+    public void update(int id, Conta origem, Conta destino, BigDecimal valor, TiposOperacao tipo, String descricao){
+        Operacao aux = busca(id);
         
+        aux.setAccounts(origem, destino);
+        aux.setInfo(valor, tipo, descricao);
     }
     
-    public void delete(){
+    public void update(int id, BigDecimal valor){
+        Operacao aux = busca(id);
         
+        aux.setInfo(valor);
+    }
+    
+    public void delete(int id){
+        final int pos = id - 1;
+        
+        operacao[pos] = null;
     }
 }

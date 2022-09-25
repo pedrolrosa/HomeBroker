@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Cliente {
     private static int serial;
-    private int id;
+    private final int id;
     
     private String nome;
     private String endereco;

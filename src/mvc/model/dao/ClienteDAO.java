@@ -5,9 +5,7 @@
  */
 package mvc.model.dao;
 
-import java.util.Date;
 import mvc.model.entities.Cliente;
-import mvc.model.entities.Conta;
 import mvc.model.entities.TipoUsuario;
 
 /**
@@ -16,12 +14,12 @@ import mvc.model.entities.TipoUsuario;
  */
 public class ClienteDAO {
     final static int nCliente = 5;
-    private Cliente usuario[] = new Cliente[nCliente];
+    private final Cliente usuario[] = new Cliente[nCliente];
     
     
     public Cliente validaLogin(String login, String senha){
         for (Cliente aux : usuario) {
-            if (aux.getLogin().equals(login) && aux.getSenha().equals(senha)) {
+            if (aux != null && aux.getLogin().equals(login) && aux.getSenha().equals(senha)) {
                 return aux;
             }
         }
@@ -54,14 +52,16 @@ public class ClienteDAO {
     }
     
     public void create(String nome, String cpf, String endereco, String telefone, String login, String senha, TipoUsuario tipo){
-        final int pos = this.pegaPosicao();
-        
-        Cliente novo = new Cliente(login, senha);
-        
-        novo.setInfo(nome, cpf, endereco, telefone);
-        novo.setTipo(tipo);
-        
-        usuario[pos] = novo;
+        if(!(this.cheio())){
+            final int pos = this.pegaPosicao();
+
+            Cliente novo = new Cliente(login, senha);
+
+            novo.setInfo(nome, cpf, endereco, telefone);
+            novo.setTipo(tipo);
+
+            usuario[pos] = novo;
+        }
     }
     
     public void read(){

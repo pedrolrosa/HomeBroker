@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class Conta {
     private static int serial;
-    private int id;
+    private final int id;
     
     private BigDecimal saldo;
     
@@ -40,6 +40,14 @@ public class Conta {
 
     public Cliente getTitular() {
         return titular;
+    }
+    
+    public void entrada(BigDecimal valor){
+        this.saldo.add(valor);
+    }
+    
+    public void retirada(BigDecimal valor){
+        this.saldo.subtract(valor);
     }
 
     public void setData(Data data) {

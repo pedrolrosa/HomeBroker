@@ -5,7 +5,10 @@
  */
 package mvc.model.dao;
 
+import java.math.BigDecimal;
+import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
+import mvc.model.entities.TipoUsuario;
 
 /**
  *
@@ -13,7 +16,48 @@ import mvc.model.entities.Conta;
  */
 public class ContaDAO {
     final int nConta = 5;
-    private Conta conta[] = new Conta[nConta];
+    private final Conta conta[] = new Conta[nConta];
+    
+    public Conta adm(){
+        for(Conta aux : conta){
+            if(aux.getTitular().getTipo() == TipoUsuario.ADM) return aux;
+        }
+        return null;
+    }
+    
+    public Conta busca(Cliente titular){
+        for(Conta aux : conta){
+            if(aux.getTitular()== titular) return aux;
+        }
+        return null;
+    }
+    
+    public Conta busca(int id){
+        for(Conta aux : conta){
+            if(aux.getId() == id) return aux;
+        }
+        return null;
+    }
+    
+    public void deposito(Conta origem, BigDecimal valor, String descricao){        
+        origem.entrada(valor);
+    }
+    
+    public void saque(Conta origem, BigDecimal valor, String descricao){        
+        origem.retirada(valor);
+    }
+    
+    public void pagamento(Conta origem, BigDecimal valor, String descricao){
+        origem.retirada(valor);
+        this.adm().entrada(valor);
+    }
+    
+    public void transferencia(Conta origem, int idDestino, BigDecimal valor, String descricao){
+        origem.retirada(valor);
+        Conta aux;
+        aux = busca(idDestino);
+        aux.entrada(valor);
+    }
     
     public boolean vazio(){
         for (Conta conta1 : conta) {
@@ -33,15 +77,22 @@ public class ContaDAO {
         return true;
     }
     
-    public int pegaPosicao(){
+    public int pegaPosicaoVazia(){
         for(int i =0; i < conta.length; i++){
             if(conta[i] == null) return i;
         }
         return -1;
     }
     
-    public void create(){
-        
+    public void create(Cliente titular){
+        if(!(this.cheio())){
+            final int pos = this.pegaPosicaoVazia();
+            Conta novo = new Conta();
+            
+            novo.setTitular(titular);
+            
+            conta[pos] = novo;
+        }
     }
     
     public void read(){
