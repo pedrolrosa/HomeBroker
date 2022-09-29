@@ -67,7 +67,18 @@ public class ClienteDAO {
         }
     }
     
-    public void read(){
+       public void read(){
+         
+         boolean temCliente = false;
+        for (Cliente aux : usuario) {
+            if (aux != null) {
+                System.out.println(aux);
+                temCliente = true;
+            }
+        }
+        if (!temCliente) {
+            System.out.println("não existe cliente cadastrado");
+        }
         
     }
     
@@ -75,7 +86,9 @@ public class ClienteDAO {
         
     }
     
-    public void delete(){
+    public void delete(int id){
+         final int pos = id - 1;
         
+        usuario[pos] = null;
     }
 }
