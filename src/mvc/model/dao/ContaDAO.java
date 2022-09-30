@@ -98,20 +98,35 @@ public class ContaDAO {
             Conta novo = new Conta();
             
             novo.setTitular(titular);
+            //novo.setLimite(limite);            
             
             conta[pos] = novo;
         }
     }
     
-    public void read(){
-        
+    public String read(){
+        if(!(this.vazio())){
+            String result = "";
+            
+            for(Conta aux : conta){
+                if(aux != null) result.concat(aux.toString()+ "\n");
+            }
+            
+            return result;
+        } else {
+            return "Nenhuma conta existente";
+        }
     }
     
     public void update(){
-        
+        if(!(this.vazio())){
+            
+        }
     }
     
     public void delete(){
-        
+        if(!(this.vazio())){
+            
+        }
     }
 }

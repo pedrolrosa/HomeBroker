@@ -19,11 +19,11 @@ public class Conta {
     
     private BigDecimal saldo;
     private BigDecimal limite;
+    private BigDecimal fatura;
     
     private Data data;
     
     private Cliente titular;
-    private AtivoDAO ativos;
     
     public Conta(){
         this.id = ++Conta.serial;
@@ -41,16 +41,16 @@ public class Conta {
         return limite;
     }
 
+    public BigDecimal getFatura() {
+        return fatura;
+    }
+
     public Data getData() {
         return data;
     }
 
     public Cliente getTitular() {
         return titular;
-    }
-
-    public AtivoDAO getAtivos() {
-        return ativos;
     }
     
     public void entrada(BigDecimal valor){
@@ -73,15 +73,19 @@ public class Conta {
         this.limite = limite;
     }
 
+    public void setFatura(BigDecimal fatura) {
+        this.fatura = fatura;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 67 * hash + this.id;
         hash = 67 * hash + Objects.hashCode(this.saldo);
         hash = 67 * hash + Objects.hashCode(this.limite);
+        hash = 67 * hash + Objects.hashCode(this.fatura);
         hash = 67 * hash + Objects.hashCode(this.data);
         hash = 67 * hash + Objects.hashCode(this.titular);
-        hash = 67 * hash + Objects.hashCode(this.ativos);
         return hash;
     }
 
@@ -106,13 +110,13 @@ public class Conta {
         if (!Objects.equals(this.limite, other.limite)) {
             return false;
         }
+        if (!Objects.equals(this.fatura, other.fatura)) {
+            return false;
+        }
         if (!Objects.equals(this.data, other.data)) {
             return false;
         }
         if (!Objects.equals(this.titular, other.titular)) {
-            return false;
-        }
-        if (!Objects.equals(this.ativos, other.ativos)) {
             return false;
         }
         return true;
@@ -120,6 +124,6 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "Conta{" + "id=" + id + ", saldo=" + saldo + ", limite=" + limite + ", data=" + data + ", titular=" + titular + ", ativos=" + ativos + '}';
+        return "Conta{" + "id=" + id + ", saldo=" + saldo + ", limite=" + limite + ", fatura=" + fatura + ", data=" + data + ", titular=" + titular + '}';
     }
 }

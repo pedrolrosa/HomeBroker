@@ -46,15 +46,29 @@ public class OrdemDAO {
         }
     }
     
-    public void read(){
-        
+    public String read(){
+        if(!(this.vazio())){
+            String result = "";
+            
+            for(Ordem aux : ordem){
+                if(aux != null) result.concat(aux.toString()+ "\n");
+            }
+            
+            return result;
+        } else {
+            return "Nenhuma ordem existente";
+        }
     }
     
     public void update(){
-        
+        if(!(this.vazio())){
+            
+        }
     }
     
     public void delete(){
-        
+        if(!(this.vazio())){
+            
+        }
     }
 }

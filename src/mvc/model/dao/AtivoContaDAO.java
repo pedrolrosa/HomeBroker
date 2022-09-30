@@ -5,32 +5,39 @@
  */
 package mvc.model.dao;
 
-import mvc.model.entities.Ativo;
+import mvc.model.entities.AtivoConta;
 
 /**
  *
  * @author pedro
  */
-public class AtivoDAO {
-    final int nAtivo = 10;
-    private final Ativo ativo[] = new Ativo[nAtivo];
+public class AtivoContaDAO {
+    final int nAtivoConta = 50;
+    private final AtivoConta[] relacao = new AtivoConta[nAtivoConta];
     
-    public AtivoDAO(){
+    public AtivoContaDAO(){
         
     }
     
     public boolean vazio(){
-        for(Ativo aux : ativo){
+        for(AtivoConta aux : relacao){
             if(aux != null) return false;
         }
         return true;
     }
     
     public boolean cheio(){
-        for(Ativo aux : ativo){
+        for(AtivoConta aux : relacao){
             if(aux == null) return false;
         }
         return true;
+    }
+    
+    public int posicaoLivre(){
+        for(int i =0; i < relacao.length; i++){
+            if(relacao[i] == null) return i;
+        }
+        return -1;
     }
     
     public void create(){
@@ -39,17 +46,9 @@ public class AtivoDAO {
         }
     }
     
-    public String read(){
+    public void read(){
         if(!(this.vazio())){
-            String result = "";
             
-            for(Ativo aux : ativo){
-                if(aux != null) result.concat(aux.toString()+ "\n");
-            }
-            
-            return result;
-        } else {
-            return "Nenhum ativo existente";
         }
     }
     

@@ -67,19 +67,18 @@ public class ClienteDAO {
         }
     }
     
-       public void read(){
-         
-         boolean temCliente = false;
-        for (Cliente aux : usuario) {
-            if (aux != null) {
-                System.out.println(aux);
-                temCliente = true;
+    public String read(){
+        if(!(this.vazio())){
+            String result = "";
+            
+            for(Cliente aux : usuario){
+                if(aux != null) result.concat(aux.toString()+ "\n");
             }
+            
+            return result;
+        } else {
+            return "Nenhum usuario existente";
         }
-        if (!temCliente) {
-            System.out.println("não existe cliente cadastrado");
-        }
-        
     }
     
     public void update(){
