@@ -120,6 +120,22 @@ public class ContaDAO {
         }
     }
     
+    public String read(Cliente atual){
+        if(!(this.vazio())){
+            StringBuilder result = new StringBuilder("");
+            
+            for(Conta aux : conta){
+                if(aux != null && aux.equals(atual)) {
+                    result.append(aux.toString() + "\n");
+                }
+            }
+            //System.out.println(result);
+            return result.toString();
+        } else {
+            return "Nenhuma conta existente";
+        }
+    }
+    
     public void update(){
         if(!(this.vazio())){
             

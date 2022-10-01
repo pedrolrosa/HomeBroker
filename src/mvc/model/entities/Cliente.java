@@ -1,8 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package mvc.model.entities;
 
 import mvc.model.enums.TipoUsuario;
 import java.util.Objects;
 
+/**
+ *
+ * @author pedro
+ */
 public class Cliente {
     private static int serial;
     private final int id;
@@ -17,8 +26,6 @@ public class Cliente {
     
     private TipoUsuario tipo;
     public Data data;
-    
-    private Conta conta;
     
     public Cliente() {
         this.id = ++Cliente.serial;
@@ -62,9 +69,6 @@ public class Cliente {
         return tipo;
     }
 
-    public Conta getConta() {
-        return conta;
-    }
     
     public void setInfo(String nome, String cpf, String endereco, String telefone){
         this.nome = nome;
@@ -84,10 +88,6 @@ public class Cliente {
 
     public void setData(Data data) {
         this.data = data;
-    }
-
-    public void setConta(Conta conta) {
-        this.conta = conta;
     }
 
     @Override

@@ -5,6 +5,7 @@ import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
 import mvc.model.dao.OperacaoDAO;
 import mvc.model.entities.Cliente;
+import mvc.model.entities.Conta;
 import mvc.model.enums.TipoUsuario;
 import mvc.view.GUI;
 
@@ -15,6 +16,7 @@ public class Program {
     AtivoDAO ativo = new AtivoDAO();
     
     Cliente atual = null;
+    Conta contaAtual = null;
     
     GUI menu = new GUI();
         
@@ -50,7 +52,9 @@ public class Program {
                 break;}
             }
             
-            if(atual != null || esc == 1 || esc == 2){
+            if(atual == null) continue;
+            
+            if(esc == 1 || esc == 2){
                 if(atual.getTipo() == TipoUsuario.ADM){
                     while(esc != 0){
                         esc = menu.telaADM();
@@ -119,7 +123,36 @@ public class Program {
                         
                         switch(esc){
                             case 1:{
-                                menu.cadastraConta(atual, conta);
+                                while(esc != 0){
+                                    
+                                    menu.telaCOMUMConta();
+                                    
+                                    switch(esc){
+                                        case 1:{
+                                            menu.cadastraConta(atual, conta);
+                                        break;}
+                                        
+                                        case 2:{
+                                            menu.verConta(atual, conta);
+                                        break;}
+                                        
+                                        case 3:{
+                                            menu.excluirConta(atual, conta);
+                                        break;}
+                                        
+                                        default:
+                                        esc = 0;
+                                        break;
+                                    }
+                                }
+                            break;}
+                            
+                            case 2:{
+                                menu.telaCOMUMOperacao();
+                            break;}
+                            
+                            case 3:{
+                                menu.telaCOMUMAtivo();
                             break;}
                             
                             default:

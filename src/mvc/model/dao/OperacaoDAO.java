@@ -95,6 +95,22 @@ public class OperacaoDAO {
         }
     }
     
+    public String read(Conta atual){
+        if(!(this.vazio())){
+            StringBuilder result = new StringBuilder("");
+            
+            for(Operacao aux : operacao){
+                if(aux != null && (aux.getOrigem() == atual || aux.getDestino() == atual)) {
+                    result.append(aux.toString() + "\n");
+                }
+            }
+            //System.out.println(result);
+            return result.toString();
+        } else {
+            return "Nenhuma operacao existente";
+        }
+    }
+    
     public void update(int id, Conta origem, Conta destino, BigDecimal valor, TipoOperacao tipo, MeioOperacao meio, String descricao){
         if(!(this.vazio())){
             Operacao aux = busca(id);
