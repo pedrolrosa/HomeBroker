@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/ContaDAO.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Ordem.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/AtivoConta.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Operacao.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Cliente.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Ativo.java</file>
@@ -17,7 +18,12 @@
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/control/Program.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/ClienteDAO.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Data.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/enums/TipoOrdem.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/enums/EstadoOrdem.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/AtivoContaDAO.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/enums/MeioOperacao.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/OrdemExecucao.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/dao/OrdemExecucaoDAO.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/if/p2/poo/HomeBroker/src/mvc/model/entities/Conta.java</file>
         </group>
     </open-files>

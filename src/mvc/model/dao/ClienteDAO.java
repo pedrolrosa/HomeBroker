@@ -29,6 +29,13 @@ public class ClienteDAO {
         return null;
     }
     
+    public Cliente busca(int id){
+        for(Cliente aux : usuario){
+            if(aux.getId() == id) return aux;
+        }
+        return null;
+    }
+    
     public boolean vazio(){
         for (Cliente aux : usuario) {
             if (aux != null) {
@@ -69,25 +76,35 @@ public class ClienteDAO {
     
     public String read(){
         if(!(this.vazio())){
-            String result = "";
+            StringBuilder result = new StringBuilder("");
             
             for(Cliente aux : usuario){
-                if(aux != null) result.concat(aux.toString()+ "\n");
+                if(aux != null) {
+                    result.append(aux.toString() + "\n");
+                }
             }
-            
-            return result;
+            //System.out.println(result);
+            return result.toString();
         } else {
             return "Nenhum usuario existente";
         }
     }
     
     public void update(){
-        
+        if(!(this.vazio())){
+            
+        }
     }
     
-    public void delete(int id){
-         final int pos = id - 1;
-        
-        usuario[pos] = null;
+    public boolean delete(int id){
+        if(!(this.vazio())){
+            
+            for(int i =0; i < nCliente; i++){
+                if(usuario[i] != null && usuario[i].getId() == id) usuario[i] = null;
+            }
+            
+            return true;
+        }
+        return false;
     }
 }

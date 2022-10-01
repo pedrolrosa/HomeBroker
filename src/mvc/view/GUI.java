@@ -5,8 +5,10 @@
  */
 package mvc.view;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import mvc.model.dao.AtivoDAO;
 import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
 import mvc.model.entities.Cliente;
@@ -41,7 +43,15 @@ public class GUI {
     }
     
     public Integer telaADM(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Cliente\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Menu Cliente\n2 - Menu Ativo\nSua escolha: "));
+    }
+    
+    public Integer telaADMCliente(){
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Cliente\n2 - Ver Clientes\n3 - Atualizar Cliente\n4 - Excluir Cliente\n0 - Voltar\nSua escolha: "));
+    }
+    
+    public Integer telaADMAtivo(){
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Ativo\n2 - Ver Ativos\n3 - Atualizar Ativo\n4 - Excluir Ativo\n0 - Voltar\nSua escolha: "));
     }
     
     public void cadastraCliente(ClienteDAO usuarios){
@@ -56,6 +66,52 @@ public class GUI {
         TipoUsuario tipo = TipoUsuario.valueOf(JOptionPane.showInputDialog("Tipo: "));
         
         usuarios.create(nome, cpf, endereco, telefone, login, senha, tipo);
+    }
+    
+    public void verCliente(ClienteDAO usuarios){
+        JOptionPane.showMessageDialog(null, usuarios.read());
+    }
+    
+    public void atualizarCliente(ClienteDAO usuarios){
+        final int id = Integer.parseInt(JOptionPane.showInputDialog(usuarios.read() + "\nExluir com ID: "));
+        
+    }
+    
+    public void excluirCliente(ClienteDAO usuarios){
+        final int id = Integer.parseInt(JOptionPane.showInputDialog(usuarios.read() + "\nExluir com ID: "));
+        
+        boolean excluiu = usuarios.delete(id);
+        
+        if(excluiu) JOptionPane.showMessageDialog(null, "Cliente Excluido");
+        else JOptionPane.showMessageDialog(null, "ID Inexistente");
+    }
+    
+    public void cadastraAtivo(AtivoDAO ativos){
+        String empresa = JOptionPane.showInputDialog("Empresa: ");
+        String ticker = JOptionPane.showInputDialog("Ticker: ");
+        
+        BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor: ", JOptionPane.INPUT_VALUE_PROPERTY));
+        BigDecimal total = new BigDecimal(JOptionPane.showInputDialog("Total de ativos: ", JOptionPane.INPUT_VALUE_PROPERTY));
+        
+        ativos.create(empresa, ticker, total, valor);
+    }
+    
+    public void verAtivo(AtivoDAO ativos){
+        JOptionPane.showMessageDialog(null, ativos.read());
+    }
+    
+    public void atualizarAtivo(AtivoDAO ativos){
+        final int id = Integer.parseInt(JOptionPane.showInputDialog(ativos.read() + "\nExluir com ID: "));
+        
+    }
+    
+    public void excluirAtivo(AtivoDAO ativos){
+        final int id = Integer.parseInt(JOptionPane.showInputDialog(ativos.read() + "\nExluir com ID: "));
+        
+        boolean excluiu = ativos.delete(id);
+        
+        if(excluiu) JOptionPane.showMessageDialog(null, "Cliente Excluido");
+        else JOptionPane.showMessageDialog(null, "ID Inexistente");
     }
     
     public Integer telaCOMUM(){

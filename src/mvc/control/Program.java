@@ -1,5 +1,6 @@
 package mvc.control;
 
+import mvc.model.dao.AtivoDAO;
 import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
 import mvc.model.dao.OperacaoDAO;
@@ -11,6 +12,7 @@ public class Program {
     ClienteDAO usuario = new ClienteDAO();
     ContaDAO conta = new ContaDAO();
     OperacaoDAO operacao = new OperacaoDAO();
+    AtivoDAO ativo = new AtivoDAO();
     
     Cliente atual = null;
     
@@ -55,7 +57,59 @@ public class Program {
                         
                         switch(esc){
                             case 1:{
-                                menu.cadastraCliente(usuario);
+                                while(esc != 0){
+                                    esc = menu.telaADMCliente();
+                                    
+                                    switch(esc){
+                                        case 1:{
+                                            menu.cadastraCliente(usuario);
+                                        break;}
+
+                                        case 2:{
+                                            menu.verCliente(usuario);
+                                        break;}
+
+                                        case 3:{
+                                            menu.atualizarCliente(usuario);
+                                        break;}
+
+                                        case 4:{
+                                            menu.excluirCliente(usuario);
+                                        break;}
+
+                                        default:
+                                            esc = 0;
+                                        break;
+                                    }
+                                }
+                            break;}
+                            
+                            case 2:{
+                                while(esc != 0){
+                                    esc = menu.telaADMAtivo();
+                                    
+                                    switch(esc){
+                                        case 1:{
+                                            menu.cadastraAtivo(ativo);
+                                        break;}
+
+                                        case 2:{
+                                            menu.verAtivo(ativo);
+                                        break;}
+
+                                        case 3:{
+                                            menu.atualizarAtivo(ativo);
+                                        break;}
+
+                                        case 4:{
+                                            menu.excluirAtivo(ativo);
+                                        break;}
+
+                                        default:
+                                            esc = 0;
+                                        break;
+                                    }
+                                }
                             break;}
                         }
                     }
@@ -67,6 +121,10 @@ public class Program {
                             case 1:{
                                 menu.cadastraConta(atual, conta);
                             break;}
+                            
+                            default:
+                                esc = 0;
+                            break;
                         }
                     }                    
                 }

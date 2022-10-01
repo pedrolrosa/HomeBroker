@@ -5,6 +5,7 @@
  */
 package mvc.model.dao;
 
+import java.math.BigDecimal;
 import mvc.model.entities.Ativo;
 
 /**
@@ -33,21 +34,37 @@ public class AtivoDAO {
         return true;
     }
     
-    public void create(){
+    public int posicaoLivre(){
+        for(int i =0; i < ativo.length; i++){
+            if(ativo[i] == null) return i;
+        }
+        return -1;
+    }
+    
+    public void create(String empresa, String ticker, BigDecimal total, BigDecimal valor){
         if(!(this.cheio())){
-            
+            final int pos = this.posicaoLivre();
+
+            Ativo novo = new Ativo();
+
+            novo.setInfo(empresa, ticker);
+            novo.setValues(total, valor);
+
+            ativo[pos] = novo;
         }
     }
     
     public String read(){
         if(!(this.vazio())){
-            String result = "";
+            StringBuilder result = new StringBuilder("");
             
             for(Ativo aux : ativo){
-                if(aux != null) result.concat(aux.toString()+ "\n");
+                if(aux != null) {
+                    result.append(aux.toString() + "\n");
+                }
             }
-            
-            return result;
+            //System.out.println(result);
+            return result.toString();
         } else {
             return "Nenhum ativo existente";
         }
@@ -59,9 +76,15 @@ public class AtivoDAO {
         }
     }
     
-    public void delete(){
+    public boolean delete(int id){
         if(!(this.vazio())){
             
+            for(int i =0; i < nAtivo; i++){
+                if(ativo[i] != null && ativo[i].getId() == id) ativo[i] = null;
+            }
+            
+            return true;
         }
+        return false;
     }
 }

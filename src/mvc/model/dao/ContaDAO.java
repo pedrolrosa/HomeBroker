@@ -106,13 +106,15 @@ public class ContaDAO {
     
     public String read(){
         if(!(this.vazio())){
-            String result = "";
+            StringBuilder result = new StringBuilder("");
             
             for(Conta aux : conta){
-                if(aux != null) result.concat(aux.toString()+ "\n");
+                if(aux != null) {
+                    result.append(aux.toString() + "\n");
+                }
             }
-            
-            return result;
+            //System.out.println(result);
+            return result.toString();
         } else {
             return "Nenhuma conta existente";
         }
@@ -124,9 +126,15 @@ public class ContaDAO {
         }
     }
     
-    public void delete(){
+    public boolean delete(int id){
         if(!(this.vazio())){
             
+            for(int i =0; i < nConta; i++){
+                if(conta[i] != null && conta[i].getId() == id) conta[i] = null;
+            }
+            
+            return true;
         }
+        return false;
     }
 }

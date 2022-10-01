@@ -81,13 +81,15 @@ public class OperacaoDAO {
     
     public String read(){
         if(!(this.vazio())){
-            String result = "";
+            StringBuilder result = new StringBuilder("");
             
             for(Operacao aux : operacao){
-                if(aux != null) result.concat(aux.toString()+ "\n");
+                if(aux != null) {
+                    result.append(aux.toString() + "\n");
+                }
             }
-            
-            return result;
+            //System.out.println(result);
+            return result.toString();
         } else {
             return "Nenhuma operacao existente";
         }

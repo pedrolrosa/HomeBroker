@@ -48,13 +48,15 @@ public class OrdemDAO {
     
     public String read(){
         if(!(this.vazio())){
-            String result = "";
+            StringBuilder result = new StringBuilder("");
             
             for(Ordem aux : ordem){
-                if(aux != null) result.concat(aux.toString()+ "\n");
+                if(aux != null) {
+                    result.append(aux.toString() + "\n");
+                }
             }
-            
-            return result;
+            //System.out.println(result);
+            return result.toString();
         } else {
             return "Nenhuma ordem existente";
         }
