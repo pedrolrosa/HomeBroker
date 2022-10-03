@@ -54,6 +54,14 @@ public class AtivoDAO {
         }
     }
     
+    public void create(Ativo novo){
+        if(!(this.cheio())){
+            final int pos = this.posicaoLivre();
+
+            ativo[pos] = novo;
+        }
+    }
+    
     public String read(){
         if(!(this.vazio())){
             StringBuilder result = new StringBuilder("");

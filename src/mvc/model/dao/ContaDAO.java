@@ -104,6 +104,14 @@ public class ContaDAO {
         }
     }
     
+    public void create(Conta novo){
+        if(!(this.cheio())){
+            final int pos = this.posicaoLivre();           
+            
+            conta[pos] = novo;
+        }
+    }
+    
     public String read(){
         if(!(this.vazio())){
             StringBuilder result = new StringBuilder("");

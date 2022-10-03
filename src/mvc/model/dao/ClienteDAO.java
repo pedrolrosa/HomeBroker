@@ -20,9 +20,9 @@ public class ClienteDAO {
         
     }    
     
-    public Cliente validaLogin(String login, String senha){
+    public Cliente validaLogin(Cliente atual){
         for (Cliente aux : usuario) {
-            if (aux != null && aux.getLogin().equals(login) && aux.getSenha().equals(senha)) {
+            if (aux != null && aux.getLogin().equals(atual.getLogin()) && aux.getSenha().equals(atual.getSenha())) {
                 return aux;
             }
         }
@@ -70,6 +70,14 @@ public class ClienteDAO {
             novo.setInfo(nome, cpf, endereco, telefone);
             novo.setTipo(tipo);
 
+            usuario[pos] = novo;
+        }
+    }
+    
+    public void create(Cliente novo){
+        if(!(this.cheio())){
+            final int pos = this.posicaoLivre();
+            
             usuario[pos] = novo;
         }
     }

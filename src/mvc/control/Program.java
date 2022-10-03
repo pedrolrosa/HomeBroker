@@ -1,9 +1,11 @@
 package mvc.control;
 
+import java.math.BigDecimal;
 import mvc.model.dao.AtivoDAO;
 import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
 import mvc.model.dao.OperacaoDAO;
+import mvc.model.entities.Ativo;
 import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
 import mvc.model.enums.TipoUsuario;
@@ -40,11 +42,11 @@ public class Program {
                 break;
                 
                 case 1:{
-                    atual = menu.login(usuario);
+                    atual = usuario.validaLogin(menu.login());
                 break;}
                 
                 case 2:{
-                    atual = menu.login(usuario);
+                    atual = usuario.validaLogin(menu.login());
                 break;}
                 
                 case 3:{
@@ -66,7 +68,9 @@ public class Program {
                                     
                                     switch(esc){
                                         case 1:{
-                                            menu.cadastraCliente(usuario);
+                                            Cliente novo = new Cliente();
+                                            menu.cadastraCliente(novo);
+                                            usuario.create(novo);
                                         break;}
 
                                         case 2:{
@@ -94,7 +98,9 @@ public class Program {
                                     
                                     switch(esc){
                                         case 1:{
-                                            menu.cadastraAtivo(ativo);
+                                            Ativo novo = new Ativo();
+                                            menu.cadastraAtivo(novo);
+                                            ativo.create(novo);
                                         break;}
 
                                         case 2:{
@@ -129,14 +135,21 @@ public class Program {
                                     
                                     switch(esc){
                                         case 1:{
-                                            menu.cadastraConta(atual, conta);
+                                            Conta novo = new Conta();
+                                            menu.cadastraConta(atual, novo);
+                                            conta.create(novo);
                                         break;}
                                         
                                         case 2:{
-                                            menu.verConta(atual, conta);
+                                            final int id = menu.trocaConta(atual);
+                                            contaAtual = conta.busca(id);
                                         break;}
                                         
                                         case 3:{
+                                            menu.verConta(atual, conta);
+                                        break;}
+                                        
+                                        case 4:{
                                             menu.excluirConta(atual, conta);
                                         break;}
                                         

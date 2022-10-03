@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import mvc.model.dao.AtivoDAO;
 import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
+import mvc.model.entities.Ativo;
 import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
 import mvc.model.enums.TipoUsuario;
@@ -31,14 +32,11 @@ public class GUI {
         else return Integer.parseInt(JOptionPane.showInputDialog("2 - Trocar Conta\n0 - Sair\nSua escolha: "));
     }
     
-    public Cliente login(ClienteDAO usuarios){
+    public Cliente login(){
         String login = JOptionPane.showInputDialog("Login: ");
         String senha = JOptionPane.showInputDialog("Senha: ");
         
-        Cliente usuario = usuarios.validaLogin(login, senha);
-        
-        if(usuario == null) JOptionPane.showMessageDialog(null, "Usuario nao existe");
-        
+        Cliente usuario = new Cliente(login, senha);
         return usuario;
     }
     
@@ -50,7 +48,7 @@ public class GUI {
         return Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Cliente\n2 - Ver Clientes\n3 - Atualizar Cliente\n4 - Excluir Cliente\n0 - Voltar\nSua escolha: "));
     }
     
-    public void cadastraCliente(ClienteDAO usuarios){
+    public void cadastraCliente(Cliente novo){
         String nome = JOptionPane.showInputDialog("Nome: ");
         String cpf = JOptionPane.showInputDialog("Cpf: ");
         String endereco = JOptionPane.showInputDialog("Endereco: ");
@@ -61,7 +59,9 @@ public class GUI {
         
         TipoUsuario tipo = TipoUsuario.valueOf(JOptionPane.showInputDialog("Tipo: "));
         
-        usuarios.create(nome, cpf, endereco, telefone, login, senha, tipo);
+        novo.setInfo(nome, cpf, endereco, telefone);
+        novo.setLogin(login, senha);
+        novo.setTipo(tipo);
     }
     
     public void verCliente(ClienteDAO usuarios){
@@ -86,14 +86,15 @@ public class GUI {
         return Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Ativo\n2 - Ver Ativos\n3 - Atualizar Ativo\n4 - Excluir Ativo\n0 - Voltar\nSua escolha: "));
     }
     
-    public void cadastraAtivo(AtivoDAO ativos){
+    public void cadastraAtivo(Ativo novo){
         String empresa = JOptionPane.showInputDialog("Empresa: ");
         String ticker = JOptionPane.showInputDialog("Ticker: ");
         
         BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor: ", JOptionPane.INPUT_VALUE_PROPERTY));
         BigDecimal total = new BigDecimal(JOptionPane.showInputDialog("Total de ativos: ", JOptionPane.INPUT_VALUE_PROPERTY));
         
-        ativos.create(empresa, ticker, total, valor);
+        novo.setInfo(empresa, ticker);
+        novo.setValues(total, valor);
     }
     
     public void verAtivo(AtivoDAO ativos){
@@ -122,12 +123,17 @@ public class GUI {
         return Integer.parseInt(JOptionPane.showInputDialog("1 - Criar Conta\n0 - Voltar\nSua escolha: "));
     }
     
-    public void cadastraConta(Cliente atual, ContaDAO contas){
+    public void cadastraConta(Cliente atual, Conta novo){
         Integer escolha = JOptionPane.showConfirmDialog(null, "Deseja criar uma conta ?", "Conta",JOptionPane.YES_NO_OPTION);
         if(escolha != 1){
-            contas.create(atual);
+            novo.setTitular(atual);
             JOptionPane.showMessageDialog(null, "Conta criada");
         } 
+    }
+    
+    public int trocaConta(Cliente atual){
+        final int id = Integer.parseInt(JOptionPane.showInputDialog(null,"\nSelecionar pelo ID: "));
+        return id;
     }
     
     public void verConta(Cliente atual, ContaDAO contas){
