@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import mvc.model.dao.AtivoDAO;
 import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
@@ -173,30 +174,51 @@ public class Program {
                                                                     //deposito
                                                                     case 1:{
                                                                         Operacao novo = new Operacao();
-                                                                        menu.novaOperacao(novo, MeioOperacao.DEPOSITO, null, contaAtual);
-                                                                        operacao.create(novo);
+                                                                        BigDecimal valor = menu.setValor();
+                                                                        novo.setInfo(valor);
+                                                                        if(menu.operacaoRealizada(conta.deposito(contaAtual, valor))){
+                                                                            menu.novaOperacao(novo, MeioOperacao.DEPOSITO, null, contaAtual);
+                                                                            operacao.create(novo);
+                                                                        }
                                                                     break;}
                                                                     
                                                                     //saque
                                                                     case 2:{
                                                                         Operacao novo = new Operacao();
-                                                                        menu.novaOperacao(novo, MeioOperacao.SAQUE, contaAtual, null);
-                                                                        operacao.create(novo);
+                                                                        BigDecimal valor = menu.setValor();
+                                                                        novo.setInfo(valor);
+                                                                        
+                                                                        if(menu.operacaoRealizada(conta.saque(contaAtual, valor))){
+                                                                            menu.novaOperacao(novo, MeioOperacao.SAQUE, contaAtual, null);
+                                                                            operacao.create(novo);
+                                                                        }
                                                                     break;}
                                                                     
                                                                     //pagamento
                                                                     case 3:{
                                                                         Operacao novo = new Operacao();
-                                                                        menu.novaOperacao(novo, MeioOperacao.PAGAMENTO, contaAtual, conta.adm());
-                                                                        operacao.create(novo);
+                                                                        BigDecimal valor = menu.setValor();
+                                                                        novo.setInfo(valor);
+                                                                        
+                                                                        if(menu.operacaoRealizada(conta.pagamento(contaAtual, valor))){
+                                                                            menu.novaOperacao(novo, MeioOperacao.PAGAMENTO, contaAtual, conta.adm());
+                                                                            operacao.create(novo);
+                                                                        }
                                                                     break;}
                                                                     
                                                                     //transferencia
                                                                     case 4:{
                                                                         Operacao novo = new Operacao();
+                                                                        BigDecimal valor = menu.setValor();
+                                                                        novo.setInfo(valor);
+                                                                        
                                                                         menu.verConta(conta.read());
-                                                                        menu.novaOperacao(novo, MeioOperacao.TRANSFERENCIA, contaAtual, conta.busca(menu.getId()));
-                                                                        operacao.create(novo);
+                                                                        final int id = menu.getId();
+                                                                        
+                                                                        if(menu.operacaoRealizada(conta.transferencia(contaAtual, id, valor))){
+                                                                            menu.novaOperacao(novo, MeioOperacao.TRANSFERENCIA, contaAtual, conta.busca(id));
+                                                                            operacao.create(novo);
+                                                                        }
                                                                     break;}
                                                                     
                                                                     //extrato

@@ -48,6 +48,12 @@ public class GUI {
         return id;
     }
     
+    public BigDecimal setValor(){
+        final BigDecimal valor = new BigDecimal(Double.parseDouble(JOptionPane.showInputDialog("Valor : ")));
+        
+        return valor;
+    }
+    
     public Integer telaADM(){
         return Integer.parseInt(JOptionPane.showInputDialog("1 - Menu Cliente\n2 - Menu Ativo\n0 - Voltar\nSua escolha: "));
     }
@@ -155,12 +161,11 @@ public class GUI {
     }
     
     public void novaOperacao(Operacao novo, MeioOperacao meio, Conta origem, Conta destino){
-        BigDecimal valor = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog("Valor: ")));
         TipoOperacao tipo = TipoOperacao.valueOf(JOptionPane.showInputDialog("Tipo: "));
         String descricao = JOptionPane.showInputDialog("Descricao: ");
         
-        novo.setInfo(valor, meio, tipo, descricao);
-        novo.setAccounts(origem, destino);
+        novo.setInfo(meio, tipo, descricao);
+        novo.setAccounts(origem, destino);        
     }
     
     public void verOperacao(String operacoes){
@@ -174,6 +179,12 @@ public class GUI {
     public void excluirOperacao(boolean excluiu){
         if(excluiu) JOptionPane.showMessageDialog(null, "Operacao Excluida");
         else JOptionPane.showMessageDialog(null, "Id inexistente");
+    }
+    
+    public boolean operacaoRealizada(boolean operacao){
+        if(operacao) JOptionPane.showMessageDialog(null, "Operacao feita");
+        else JOptionPane.showMessageDialog(null, "Nao foi possivel realizar a operacao");
+        return operacao;
     }
     
     public Integer telaCOMUMAtivo(){

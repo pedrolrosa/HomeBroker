@@ -43,24 +43,37 @@ public class ContaDAO {
         return null;
     }
     
-    public void deposito(Conta origem, BigDecimal valor, String descricao){        
+    public boolean deposito(Conta origem, BigDecimal valor){        
         origem.entrada(valor);
+        return true;
     }
     
-    public void saque(Conta origem, BigDecimal valor, String descricao){        
-        origem.retirada(valor);
+    public boolean saque(Conta origem, BigDecimal valor){        
+        if(origem.getSaldo().compareTo(valor) >= 0){
+            origem.retirada(valor);
+            return true;
+        }
+        return false;
     }
     
-    public void pagamento(Conta origem, BigDecimal valor, String descricao){
-        origem.retirada(valor);
-        this.adm().entrada(valor);
+    public boolean pagamento(Conta origem, BigDecimal valor){
+        if(origem.getSaldo().compareTo(valor) >= 0){
+            origem.retirada(valor);
+            this.adm().entrada(valor);
+            return true;
+        }
+        return false;
     }
     
-    public void transferencia(Conta origem, int idDestino, BigDecimal valor, String descricao){
-        origem.retirada(valor);
-        Conta aux;
-        aux = busca(idDestino);
-        aux.entrada(valor);
+    public boolean transferencia(Conta origem, int idDestino, BigDecimal valor){
+        if(origem.getSaldo().compareTo(valor) >= 0){
+            origem.retirada(valor);
+            Conta aux;
+            aux = busca(idDestino);
+            aux.entrada(valor);
+            return true;
+        }
+        return false;
     }
     
     public String extrato(Conta atual, OperacaoDAO operacoes){

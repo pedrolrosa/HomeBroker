@@ -63,7 +63,7 @@ public class Operacao {
         return destino;
     }
     
-    public void setInfo(BigDecimal valor, MeioOperacao meio, TipoOperacao tipo, String descricao){
+    public void setInfo(MeioOperacao meio, TipoOperacao tipo, String descricao){
         this.valor = valor;
         this.meio = meio;
         this.tipo = tipo;

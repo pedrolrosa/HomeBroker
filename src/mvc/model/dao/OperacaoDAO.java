@@ -106,14 +106,14 @@ public class OperacaoDAO {
         }
     }
     
-    public void update(int id, Conta origem, Conta destino, BigDecimal valor, TipoOperacao tipo, MeioOperacao meio, String descricao){
-        if(!(this.vazio())){
-            Operacao aux = busca(id);
-        
-            aux.setAccounts(origem, destino);
-            aux.setInfo(valor, meio, tipo, descricao);
-        }
-    }
+//    public void update(int id, Conta origem, Conta destino, BigDecimal valor, TipoOperacao tipo, MeioOperacao meio, String descricao){
+//        if(!(this.vazio())){
+//            Operacao aux = busca(id);
+//        
+//            aux.setAccounts(origem, destino);
+//            aux.setInfo(valor, meio, tipo, descricao);
+//        }
+//    }
     
     public void update(int id, BigDecimal valor){
         if(!(this.vazio())){
