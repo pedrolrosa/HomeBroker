@@ -15,7 +15,7 @@ import mvc.model.enums.TipoUsuario;
  * @author pedro
  */
 public class ContaDAO {
-    final int nConta = 5;
+    final int nConta = 10;
     private final Conta conta[] = new Conta[nConta];
     
     public ContaDAO(){
@@ -92,18 +92,6 @@ public class ContaDAO {
         return -1;
     }
     
-    public void create(Cliente titular){
-        if(!(this.cheio())){
-            final int pos = this.posicaoLivre();
-            Conta novo = new Conta();
-            
-            novo.setTitular(titular);
-            //novo.setLimite(limite);            
-            
-            conta[pos] = novo;
-        }
-    }
-    
     public void create(Conta novo){
         if(!(this.cheio())){
             final int pos = this.posicaoLivre();           
@@ -154,10 +142,12 @@ public class ContaDAO {
         if(!(this.vazio())){
             
             for(int i =0; i < nConta; i++){
-                if(conta[i] != null && conta[i].getId() == id) conta[i] = null;
+                if(conta[i] != null && conta[i].getId() == id){
+                    conta[i] = null;
+                    return true;
+                }
+                
             }
-            
-            return true;
         }
         return false;
     }

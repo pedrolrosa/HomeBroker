@@ -88,10 +88,11 @@ public class AtivoDAO {
         if(!(this.vazio())){
             
             for(int i =0; i < nAtivo; i++){
-                if(ativo[i] != null && ativo[i].getId() == id) ativo[i] = null;
+                if(ativo[i] != null && ativo[i].getId() == id){
+                    ativo[i] = null;
+                    return true;
+                }
             }
-            
-            return true;
         }
         return false;
     }

@@ -66,14 +66,9 @@ public class OperacaoDAO {
         return -1;
     }
     
-    public void create(Conta origem, Conta destino, BigDecimal valor, TipoOperacao tipo, MeioOperacao meio, String descricao){
+    public void create(Operacao novo){
         if(!(this.cheio())){
             final int pos = this.posicaoLivre();
-
-            Operacao novo = new Operacao();
-
-            novo.setAccounts(origem, destino);
-            novo.setInfo(valor, meio, tipo, descricao);
 
             operacao[pos] = novo;
         }

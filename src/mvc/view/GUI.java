@@ -6,22 +6,20 @@
 package mvc.view;
 
 import java.math.BigDecimal;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
-import mvc.model.dao.AtivoDAO;
-import mvc.model.dao.ClienteDAO;
-import mvc.model.dao.ContaDAO;
 import mvc.model.entities.Ativo;
 import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
+import mvc.model.entities.Operacao;
+import mvc.model.enums.MeioOperacao;
+import mvc.model.enums.TipoOperacao;
 import mvc.model.enums.TipoUsuario;
 
 /**
  *
  * @author pedro
  */
-public class GUI {
-    Scanner scan = new Scanner(System.in);
+public class GUI {    
     
     public GUI(){
         
@@ -32,12 +30,22 @@ public class GUI {
         else return Integer.parseInt(JOptionPane.showInputDialog("2 - Trocar Conta\n0 - Sair\nSua escolha: "));
     }
     
-    public Cliente login(){
+    public String getLogin(){
         String login = JOptionPane.showInputDialog("Login: ");
+        
+        return login;
+    }
+    
+    public String getSenha(){
         String senha = JOptionPane.showInputDialog("Senha: ");
         
-        Cliente usuario = new Cliente(login, senha);
-        return usuario;
+        return senha;
+    }
+    
+    public int getId(){
+        final int id = Integer.parseInt(JOptionPane.showInputDialog("Id : "));
+        
+        return id;
     }
     
     public Integer telaADM(){
@@ -64,22 +72,18 @@ public class GUI {
         novo.setTipo(tipo);
     }
     
-    public void verCliente(ClienteDAO usuarios){
-        JOptionPane.showMessageDialog(null, usuarios.read());
+    public void verCliente(String usuarios){
+        JOptionPane.showMessageDialog(null, usuarios);
     }
     
-    public void atualizarCliente(ClienteDAO usuarios){
+    public void atualizarCliente(){
         //final int id = Integer.parseInt(JOptionPane.showInputDialog(usuarios.read() + "\nExluir com ID: "));
         
     }
     
-    public void excluirCliente(ClienteDAO usuarios){
-        final int id = Integer.parseInt(JOptionPane.showInputDialog(usuarios.read() + "\nExluir com ID: "));
-        
-        boolean excluiu = usuarios.delete(id);
-        
+    public void excluirCliente(boolean excluiu){
         if(excluiu) JOptionPane.showMessageDialog(null, "Cliente Excluido");
-        else JOptionPane.showMessageDialog(null, "ID Inexistente");
+        else JOptionPane.showMessageDialog(null, "Id inexistente");
     }
     
     public Integer telaADMAtivo(){
@@ -97,30 +101,27 @@ public class GUI {
         novo.setValues(total, valor);
     }
     
-    public void verAtivo(AtivoDAO ativos){
-        JOptionPane.showMessageDialog(null, ativos.read());
+    public void verAtivo(String ativos){
+        JOptionPane.showMessageDialog(null, ativos);
     }
     
-    public void atualizarAtivo(AtivoDAO ativos){
+    public void atualizarAtivo(){
         //final int id = Integer.parseInt(JOptionPane.showInputDialog(ativos.read() + "\nExluir com ID: "));
         
     }
     
-    public void excluirAtivo(AtivoDAO ativos){
-        final int id = Integer.parseInt(JOptionPane.showInputDialog(ativos.read() + "\nExluir com ID: "));
-        
-        boolean excluiu = ativos.delete(id);
-        
+    public void excluirAtivo(boolean excluiu){
         if(excluiu) JOptionPane.showMessageDialog(null, "Cliente Excluido");
-        else JOptionPane.showMessageDialog(null, "ID Inexistente");
+        else JOptionPane.showMessageDialog(null, "Id inexistente");
     }
     
     public Integer telaCOMUM(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Menu Conta\n2 - Menu Operacao\n3 - Menu Ativo\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Menu Conta\n0 - Voltar\nSua escolha: "));
     }
     
-    public Integer telaCOMUMConta(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Criar Conta\n0 - Voltar\nSua escolha: "));
+    public Integer telaCOMUMConta(Conta contaAtual){
+        if(contaAtual != null) return Integer.parseInt(JOptionPane.showInputDialog("1 - Entrar\n2 - Criar Conta\n3 - Trocar Conta\n4 - Ver Contas\n5 - Excluir Conta\n0 - Voltar\nSua escolha: "));
+        else return Integer.parseInt(JOptionPane.showInputDialog("2 - Criar Conta\n3 - Trocar Conta\n4 - Ver Contas\n5 - Excluir Conta\n0 - Voltar\nSua escolha: "));
     }
     
     public void cadastraConta(Cliente atual, Conta novo){
@@ -136,24 +137,46 @@ public class GUI {
         return id;
     }
     
-    public void verConta(Cliente atual, ContaDAO contas){
-        JOptionPane.showMessageDialog(null, contas.read(atual));
+    public void verConta(String atual){
+        JOptionPane.showMessageDialog(null, atual);
     }
     
-    public void excluirConta(Cliente atual, ContaDAO contas){
-        final int id = Integer.parseInt(JOptionPane.showInputDialog(contas.read(atual) + "Excluir com o ID: "));
-        
-        boolean excluiu = contas.delete(id);
-        
-        if(excluiu) JOptionPane.showMessageDialog(null, "Conta Excluido");
-        else JOptionPane.showMessageDialog(null, "ID Inexistente");
+    public void excluirConta(boolean excluiu){
+        if(excluiu) JOptionPane.showMessageDialog(null, "Cliente Excluido");
+        else JOptionPane.showMessageDialog(null, "Id nao existe");
+    }
+    
+    public Integer telaCOMUMConta(){
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Operacao\n2 - Ativo\n3 - Book de Oferta\n0 - Voltar\nSua escolha: "));
     }
     
     public Integer telaCOMUMOperacao(){
-        return Integer.parseInt(JOptionPane.showInputDialog("\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Deposito\n2 - Saque\n3 - Saldo\n4 - Pagamento\n5 - Transferencia\n5 - Extrato\n0 - Voltar\nSua escolha: "));
+    }
+    
+    public void novaOperacao(Operacao novo, MeioOperacao meio, Conta origem, Conta destino){
+        BigDecimal valor = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog("Valor: ")));
+        TipoOperacao tipo = TipoOperacao.valueOf(JOptionPane.showInputDialog("Tipo: "));
+        String descricao = JOptionPane.showInputDialog("Descricao: ");
+        
+        novo.setInfo(valor, meio, tipo, descricao);
+        novo.setAccounts(origem, destino);
+    }
+    
+    public void verOperacao(String operacoes){
+        JOptionPane.showMessageDialog(null, operacoes);
+    }
+    
+    public void alteraOperacao(){
+        
+    }
+    
+    public void excluirOperacao(boolean excluiu){
+        if(excluiu) JOptionPane.showMessageDialog(null, "Operacao Excluida");
+        else JOptionPane.showMessageDialog(null, "Id inexistente");
     }
     
     public Integer telaCOMUMAtivo(){
-        return Integer.parseInt(JOptionPane.showInputDialog("\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Comprar\n 2 - Vender\n0 - Voltar\nSua escolha: "));
     }
 }
