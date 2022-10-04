@@ -82,9 +82,13 @@ public class GUI {
         JOptionPane.showMessageDialog(null, usuarios);
     }
     
-    public void atualizarCliente(){
-        //final int id = Integer.parseInt(JOptionPane.showInputDialog(usuarios.read() + "\nExluir com ID: "));
+    public Cliente atualizarCliente(Cliente altera){
+        String login = JOptionPane.showInputDialog("Login: ");
+        String senha = JOptionPane.showInputDialog("Senha: ");
         
+        altera.setLogin(login, senha);
+        
+        return altera;
     }
     
     public void excluirCliente(boolean excluiu){
@@ -152,7 +156,7 @@ public class GUI {
     }
     
     public void excluirConta(boolean excluiu){
-        if(excluiu) JOptionPane.showMessageDialog(null, "Cliente Excluido");
+        if(excluiu) JOptionPane.showMessageDialog(null, "Conta Excluido");
         else JOptionPane.showMessageDialog(null, "Id nao existe");
     }
     

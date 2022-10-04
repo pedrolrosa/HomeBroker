@@ -68,7 +68,7 @@ public class AtivoDAO {
             
             for(Ativo aux : ativo){
                 if(aux != null) {
-                    result.append(aux.toString() + "\n");
+                    result.append(aux.toString()).append("\n");
                 }
             }
             //System.out.println(result);

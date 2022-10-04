@@ -96,7 +96,7 @@ public class OperacaoDAO {
             
             for(Operacao aux : operacao){
                 if(aux != null && (aux.getOrigem() == atual || aux.getDestino() == atual)) {
-                    result.append(aux.toString() + "\n");
+                    result.append(aux.toString()).append("\n");
                 }
             }
             //System.out.println(result);

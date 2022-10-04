@@ -119,7 +119,7 @@ public class ContaDAO {
             
             for(Conta aux : conta){
                 if(aux != null) {
-                    result.append(aux.toString() + "\n");
+                    result.append(aux.toString()).append("\n");
                 }
             }
             //System.out.println(result);
@@ -134,8 +134,8 @@ public class ContaDAO {
             StringBuilder result = new StringBuilder("");
             
             for(Conta aux : conta){
-                if(aux != null && aux.equals(atual)) {
-                    result.append(aux.toString() + "\n");
+                if(aux != null && aux.getTitular().equals(atual)) {
+                    result.append(aux.toString()).append("\n");
                 }
             }
             //System.out.println(result);

@@ -88,7 +88,7 @@ public class ClienteDAO {
             
             for(Cliente aux : usuario){
                 if(aux != null) {
-                    result.append(aux.toString() + "\n");
+                    result.append(aux.toString()).append("\n");
                 }
             }
             //System.out.println(result);
@@ -98,8 +98,9 @@ public class ClienteDAO {
         }
     }
     
-    public void update(){
-        if(!(this.vazio())){
+    public void update(Cliente alvo, Cliente altera){
+        if(!(this.vazio()) && alvo != null){
+            alvo.setLogin(altera.getLogin(), altera.getSenha());
             
         }
     }

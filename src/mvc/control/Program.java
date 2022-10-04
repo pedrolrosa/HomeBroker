@@ -95,7 +95,10 @@ public class Program {
                                         break;}
 
                                         case 3:{
-                                            //menu.atualizarCliente(usuario);
+                                            menu.verCliente(usuario.read());
+                                            final int id = menu.getId();
+                                            Cliente alvo = usuario.busca(id);
+                                            usuario.update(alvo, menu.atualizarCliente(alvo));
                                         break;}
 
                                         case 4:{
@@ -168,8 +171,8 @@ public class Program {
                                                     esc = menu.telaCOMUMConta();
                                                     
                                                     switch(esc){
+                                                        // cliente faz uma operacao na conta atual do mesmo
                                                         case 1:{
-                                                            // cliente faz uma operacao na conta atual do mesmo
                                                             op = 1;
                                                             while(op != 0){
                                                                 op = menu.telaCOMUMOperacao();
@@ -240,6 +243,7 @@ public class Program {
                                                             }
                                                         break;}
                                                         
+                                                        // tela ativos
                                                         case 2:{
                                                             while(esc != 0){
                                                                 esc = menu.telaCOMUMAtivo();
@@ -250,11 +254,14 @@ public class Program {
                                                             }
                                                         break;}
                                                         
+                                                        // book de ofertas
                                                         case 3:{
                                                             
                                                         break;}
                                                         
+                                                        // ver saldo da conta
                                                         case 4:{
+                                                            
                                                             menu.verContaSaldo(contaAtual.getSaldo().toString());
                                                         break;}
                                                         
@@ -269,6 +276,7 @@ public class Program {
                                         // CRUD de conta do cliente logado 
                                         
                                         case 2:{
+                                            // criar conta
                                             Conta novo = new Conta();
                                             menu.cadastraConta(atual, novo);
                                             conta.create(novo);
@@ -276,14 +284,18 @@ public class Program {
                                         break;}
                                         
                                         case 3:{
+                                            // trocar conta pelo id
+                                            menu.verConta(conta.read(atual));
                                             contaAtual = conta.busca(menu.trocaConta(atual));
                                         break;}
                                         
                                         case 4:{
+                                            // ver contas
                                             menu.verConta(conta.read(atual));
                                         break;}
                                         
                                         case 5:{
+                                            // excluir conta pelo id
                                             menu.verConta(conta.read(atual));
                                             menu.excluirConta(conta.delete(menu.getId()));
                                         break;}
