@@ -49,7 +49,7 @@ public class GUI {
     }
     
     public BigDecimal setValor(){
-        final BigDecimal valor = new BigDecimal(Double.parseDouble(JOptionPane.showInputDialog("Valor : ")));
+        final BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor : "));
         
         return valor;
     }
@@ -147,21 +147,27 @@ public class GUI {
         JOptionPane.showMessageDialog(null, atual);
     }
     
+    public void verContaSaldo(String saldo){
+        JOptionPane.showMessageDialog(null, "Saldo: " + saldo);
+    }
+    
     public void excluirConta(boolean excluiu){
         if(excluiu) JOptionPane.showMessageDialog(null, "Cliente Excluido");
         else JOptionPane.showMessageDialog(null, "Id nao existe");
     }
     
     public Integer telaCOMUMConta(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Operacao\n2 - Ativo\n3 - Book de Oferta\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Operacao\n2 - Ativo\n3 - Book de Oferta\n4 - Saldo\n0 - Voltar\nSua escolha: "));
     }
     
     public Integer telaCOMUMOperacao(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Deposito\n2 - Saque\n3 - Saldo\n4 - Pagamento\n5 - Transferencia\n5 - Extrato\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Deposito\n2 - Saque\n3 - Pagamento\n4 - Transferencia\n5 - Extrato\n0 - Voltar\nSua escolha: "));
     }
     
     public void novaOperacao(Operacao novo, MeioOperacao meio, Conta origem, Conta destino){
-        TipoOperacao tipo = TipoOperacao.valueOf(JOptionPane.showInputDialog("Tipo: "));
+        TipoOperacao tipo;
+        if(!(meio.equals(MeioOperacao.DEPOSITO) || meio.equals(MeioOperacao.SAQUE))) tipo = TipoOperacao.valueOf(JOptionPane.showInputDialog("Tipo: "));
+        else tipo = TipoOperacao.DEBITO;
         String descricao = JOptionPane.showInputDialog("Descricao: ");
         
         novo.setInfo(meio, tipo, descricao);

@@ -17,7 +17,7 @@ public class Conta {
     private static int serial;
     private final int id;
     
-    private BigDecimal saldo;
+    private BigDecimal saldo = new BigDecimal("0");
     private BigDecimal limite;
     private BigDecimal fatura;
     
@@ -54,11 +54,11 @@ public class Conta {
     }
     
     public void entrada(BigDecimal valor){
-        this.saldo.add(valor);
+        this.saldo = this.saldo.add(valor);
     }
     
     public void retirada(BigDecimal valor){
-        this.saldo.subtract(valor);
+        this.saldo = this.saldo.subtract(valor);
     }
 
     public void setData(Data data) {

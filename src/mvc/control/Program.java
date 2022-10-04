@@ -38,7 +38,7 @@ public class Program {
         // usuario teste
         usuario.create("Pedro", "32145", "Vallim", "+55 34 99845404", "ped", "321", TipoUsuario.COMUM);
         
-        int esc;
+        Integer esc = null, op = null;
         boolean on = true;
         
         while(on){
@@ -53,13 +53,11 @@ public class Program {
                 case 1:{
                     // valida o primeiro login
                     atual = usuario.validaLogin(menu.getLogin(), menu.getSenha());
-                    contaAtual = conta.busca(atual);
                 break;}
                 
                 case 2:{
                     // caso queira trocar de usuario 
                     atual = usuario.validaLogin(menu.getLogin(), menu.getSenha());
-                    contaAtual = conta.busca(atual);
                 break;}
                 
                 case 3:{
@@ -81,10 +79,11 @@ public class Program {
                         switch(esc){
                             case 1:{
                                 // CRUD de cliente
-                                while(esc != 0){
-                                    esc = menu.telaADMCliente();
+                                op = 1;
+                                while(op != 0){
+                                    op = menu.telaADMCliente();
                                     
-                                    switch(esc){
+                                    switch(op){
                                         case 1:{
                                             Cliente novo = new Cliente();
                                             menu.cadastraCliente(novo);
@@ -105,7 +104,7 @@ public class Program {
                                         break;}
 
                                         default:
-                                            esc = 0;
+                                            op = 0;
                                         break;
                                     }
                                 }
@@ -113,10 +112,11 @@ public class Program {
                             
                             case 2:{
                                 // CRUD de ativo
-                                while(esc != 0){
-                                    esc = menu.telaADMAtivo();
+                                op = 1;
+                                while(op != 0){
+                                    op = menu.telaADMAtivo();
                                     
-                                    switch(esc){
+                                    switch(op){
                                         case 1:{
                                             Ativo novo = new Ativo();
                                             menu.cadastraAtivo(novo);
@@ -137,7 +137,7 @@ public class Program {
                                         break;}
 
                                         default:
-                                            esc = 0;
+                                            op = 0;
                                         break;
                                     }
                                 }
@@ -146,6 +146,7 @@ public class Program {
                     }
                 // se o cliente logado nao for adm, entao ele sera comum
                 } else {
+                    esc = 1;
                     while(esc != 0){
                         // opcoes para o usuario do tipo comum
                         esc = menu.telaCOMUM();
@@ -153,30 +154,36 @@ public class Program {
                         switch(esc){
                             // CRUD e administração da conta atual do usuario comum
                             case 1:{
-                                while(esc != 0){
+                                op = 1;
+                                while(op != 0){
                                     
-                                    esc = menu.telaCOMUMConta(contaAtual);
+                                    op = menu.telaCOMUMConta(contaAtual);
                                     
-                                    switch(esc){
+                                    switch(op){
                                         // operacoes, gerenciamento de ativos e book de ofertas para o usuario comum
                                         case 1:{
                                             if(contaAtual != null){
+                                                esc = 1;
                                                 while(esc != 0){
                                                     esc = menu.telaCOMUMConta();
                                                     
                                                     switch(esc){
                                                         case 1:{
                                                             // cliente faz uma operacao na conta atual do mesmo
-                                                            while(esc != 0){
-                                                                esc = menu.telaCOMUMOperacao();
+                                                            op = 1;
+                                                            while(op != 0){
+                                                                op = menu.telaCOMUMOperacao();
                                                                 
-                                                                switch(esc){
+                                                                switch(op){
                                                                     //deposito
                                                                     case 1:{
                                                                         Operacao novo = new Operacao();
                                                                         BigDecimal valor = menu.setValor();
                                                                         novo.setInfo(valor);
-                                                                        if(menu.operacaoRealizada(conta.deposito(contaAtual, valor))){
+                                                                        
+                                                                        boolean verifica = menu.operacaoRealizada(conta.deposito(contaAtual, valor));
+                                                                        
+                                                                        if(verifica){
                                                                             menu.novaOperacao(novo, MeioOperacao.DEPOSITO, null, contaAtual);
                                                                             operacao.create(novo);
                                                                         }
@@ -227,7 +234,7 @@ public class Program {
                                                                     break;}
                                                                     
                                                                     default:
-                                                                    esc = 0;
+                                                                    op = 0;
                                                                     break;
                                                                 }
                                                             }
@@ -247,6 +254,10 @@ public class Program {
                                                             
                                                         break;}
                                                         
+                                                        case 4:{
+                                                            menu.verContaSaldo(contaAtual.getSaldo().toString());
+                                                        break;}
+                                                        
                                                         default:
                                                         esc = 0;
                                                         break;
@@ -261,6 +272,7 @@ public class Program {
                                             Conta novo = new Conta();
                                             menu.cadastraConta(atual, novo);
                                             conta.create(novo);
+                                            contaAtual = novo;
                                         break;}
                                         
                                         case 3:{
@@ -277,7 +289,7 @@ public class Program {
                                         break;}
                                         
                                         default:
-                                        esc = 0;
+                                        op = 0;
                                         break;
                                     }
                                 }
