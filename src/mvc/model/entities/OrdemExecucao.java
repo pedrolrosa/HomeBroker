@@ -20,12 +20,17 @@ public class OrdemExecucao {
     private Conta compra;
     private Conta venda;
     
-    private BigDecimal quantidade;
+    private int quantidade;
     
     private Data data;
     
     public OrdemExecucao(){
         this.id = ++this.serial;
+        this.quantidade = 1;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Ordem getOrdem() {
@@ -52,12 +57,12 @@ public class OrdemExecucao {
         this.venda = venda;
     }
 
-    public BigDecimal getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(BigDecimal quantidade) {
-        this.quantidade = quantidade;
+    public void addQuantidade() {
+        this.quantidade += quantidade;
     }
 
     @Override

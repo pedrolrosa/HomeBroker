@@ -24,14 +24,19 @@ public class ContaDAO {
     
     public Conta adm(){
         for(Conta aux : conta){
-            if(aux.getTitular().getTipo() == TipoUsuario.ADM) return aux;
+            if(aux != null){
+                if(aux.getTitular().getTipo() == TipoUsuario.ADM) return aux;
+            }
         }
         return null;
     }
     
     public Conta busca(Cliente titular){
         for(Conta aux : conta){
-            if(aux.getTitular()== titular) return aux;
+            if(aux != null){
+                if(aux.getTitular() == titular) return aux;
+            }
+            
         }
         return null;
     }
@@ -149,7 +154,7 @@ public class ContaDAO {
         }
     }
     
-    public void update(){
+    public void update(Conta alvo, Conta altera){
         if(!(this.vazio())){
             
         }

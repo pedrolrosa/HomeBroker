@@ -25,14 +25,14 @@ public class Ordem {
     
     private String ticker;
     
-    private BigDecimal qtd;
+    private int qtd;
     private BigDecimal valor;
     private BigDecimal valorTotal;
     
     private Data data;    
     
     public Ordem(){
-        this.id = ++this.serial;
+        this.id = ++Ordem.serial;
     }
 
     public int getId() {
@@ -55,7 +55,7 @@ public class Ordem {
         return ticker;
     }
 
-    public BigDecimal getQtd() {
+    public int getQtd() {
         return qtd;
     }
 
@@ -84,7 +84,7 @@ public class Ordem {
         this.estado = estado;
     }
     
-    public void setValues(BigDecimal qtd, BigDecimal valor, BigDecimal valorTotal){
+    public void setValues(int qtd, BigDecimal valor, BigDecimal valorTotal){
         this.qtd = qtd;
         this.valor = valor;
         this.valorTotal = valorTotal;

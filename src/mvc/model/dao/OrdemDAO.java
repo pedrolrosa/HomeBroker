@@ -5,6 +5,7 @@
  */
 package mvc.model.dao;
 
+import mvc.model.entities.Conta;
 import mvc.model.entities.Ordem;
 
 /**
@@ -40,9 +41,11 @@ public class OrdemDAO {
         return -1;
     }
     
-    public void create(){
+    public void create(Ordem novo){
         if(!(this.cheio())){
+            final int pos = this.posicaoLivre();           
             
+            ordem[pos] = novo;
         }
     }
     
@@ -52,7 +55,7 @@ public class OrdemDAO {
             
             for(Ordem aux : ordem){
                 if(aux != null) {
-                    result.append(aux.toString() + "\n");
+                    result.append(aux.toString()).append("\n");
                 }
             }
             //System.out.println(result);
@@ -62,15 +65,38 @@ public class OrdemDAO {
         }
     }
     
-    public void update(){
+    public String read(Conta atual){
         if(!(this.vazio())){
+            StringBuilder result = new StringBuilder("");
             
+            for(Ordem aux : ordem){
+                if(aux != null && aux.getConta().equals(atual)) {
+                    result.append(aux.toString()).append("\n");
+                }
+            }
+            //System.out.println(result);
+            return result.toString();
+        } else {
+            return "Nenhuma ordem existente na conta";
         }
     }
     
-    public void delete(){
+    public void update(Ordem alvo, Ordem altera){
+        if(!(this.vazio()) && alvo != null && altera != null){
+            alvo.setValues(altera.getQtd(), altera.getValor(), altera.getValorTotal());
+        }
+    }
+    
+    public boolean delete(int id){
         if(!(this.vazio())){
             
+            for(int i =0; i < nOrdem; i++){
+                if(ordem[i] != null && ordem[i].getId() == id){
+                    ordem[i] = null;
+                    return true;
+                }
+            }
         }
+        return false;
     }
 }

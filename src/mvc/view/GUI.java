@@ -11,8 +11,11 @@ import mvc.model.entities.Ativo;
 import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
+import mvc.model.entities.Ordem;
+import mvc.model.enums.EstadoOrdem;
 import mvc.model.enums.MeioOperacao;
 import mvc.model.enums.TipoOperacao;
+import mvc.model.enums.TipoOrdem;
 import mvc.model.enums.TipoUsuario;
 
 /**
@@ -104,8 +107,8 @@ public class GUI {
         String empresa = JOptionPane.showInputDialog("Empresa: ");
         String ticker = JOptionPane.showInputDialog("Ticker: ");
         
-        BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor: ", JOptionPane.INPUT_VALUE_PROPERTY));
-        BigDecimal total = new BigDecimal(JOptionPane.showInputDialog("Total de ativos: ", JOptionPane.INPUT_VALUE_PROPERTY));
+        BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor: "));
+        BigDecimal total = new BigDecimal(JOptionPane.showInputDialog("Total de ativos: "));
         
         novo.setInfo(empresa, ticker);
         novo.setValues(total, valor);
@@ -202,6 +205,29 @@ public class GUI {
     }
     
     public Integer telaCOMUMAtivo(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Comprar\n 2 - Vender\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Comprar / Vender\n2 - Meus Ativos\n0 - Voltar\nSua escolha: "));
+    }
+    
+    public void novaOrdem(Conta atual, Ativo ativo, Ordem novo){
+        Integer qtd = Integer.parseInt(JOptionPane.showInputDialog("Quantidade : "));
+        TipoOrdem tipo = TipoOrdem.valueOf(JOptionPane.showInputDialog("Ordem : "));
+        
+        if(tipo.equals(TipoOrdem.ZERO)){
+            
+            BigDecimal precoInicial = new BigDecimal(10);
+            
+            novo.setValues(qtd, precoInicial, precoInicial.multiply(new BigDecimal(qtd)));
+        } else {
+            BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor: "));
+            
+            novo.setValues(qtd, valor, valor.multiply(new BigDecimal(qtd)));
+        }
+        novo.setConta(atual);
+        novo.setTicker(ativo.getTicker());
+        novo.setTypes(tipo, EstadoOrdem.TOTAL);
+    }
+    
+    public void verOrdem(String ordens){
+        JOptionPane.showMessageDialog(null, ordens);
     }
 }

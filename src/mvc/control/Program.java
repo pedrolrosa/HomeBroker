@@ -1,18 +1,17 @@
 package mvc.control;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import javax.swing.JOptionPane;
 import mvc.model.dao.AtivoDAO;
 import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
 import mvc.model.dao.OperacaoDAO;
+import mvc.model.dao.OrdemDAO;
 import mvc.model.entities.Ativo;
 import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
+import mvc.model.entities.Ordem;
 import mvc.model.enums.MeioOperacao;
 import mvc.model.enums.TipoUsuario;
 import mvc.view.GUI;
@@ -22,6 +21,7 @@ public class Program {
     private ContaDAO conta = new ContaDAO();
     private OperacaoDAO operacao = new OperacaoDAO();
     private AtivoDAO ativo = new AtivoDAO();
+    private OrdemDAO ordem = new OrdemDAO();
     
     private Cliente atual = null;
     private Conta contaAtual = null;
@@ -38,7 +38,7 @@ public class Program {
         // usuario teste
         usuario.create("Pedro", "32145", "Vallim", "+55 34 99845404", "ped", "321", TipoUsuario.COMUM);
         
-        Integer esc = null, op = null;
+        int esc, op;
         boolean on = true;
         
         while(on){
@@ -262,14 +262,30 @@ public class Program {
                                                                 op = menu.telaCOMUMAtivo();
                                                                 
                                                                 switch(op){
+                                                                    // gera uma nova ordem
+                                                                    case 1:{
+                                                                        menu.verAtivo(ativo.read());
+                                                                        if(!(ativo.vazio())){
+                                                                            Ordem novo = new Ordem();
+                                                                            menu.novaOrdem(contaAtual, ativo.busca(menu.getId()), novo);
+                                                                        }
+                                                                    break;}
                                                                     
+                                                                    // mostra as ordens do usuario
+                                                                    case 2:{
+                                                                        menu.verOrdem(ordem.read(contaAtual));
+                                                                    break;}
+                                                                    
+                                                                    default:
+                                                                    op = 0;
+                                                                    break;
                                                                 }
                                                             }
                                                         break;}
                                                         
                                                         // book de ofertas
                                                         case 3:{
-                                                            
+                                                            menu.verOrdem(ordem.read());
                                                         break;}
                                                         
                                                         // ver saldo da conta
@@ -299,7 +315,7 @@ public class Program {
                                         case 3:{
                                             // trocar conta pelo id
                                             menu.verConta(conta.read(atual));
-                                            contaAtual = conta.busca(menu.trocaConta(atual));
+                                            if(!(conta.vazio()))contaAtual = conta.busca(menu.trocaConta(atual));
                                         break;}
                                         
                                         case 4:{
@@ -310,7 +326,9 @@ public class Program {
                                         case 5:{
                                             // excluir conta pelo id
                                             menu.verConta(conta.read(atual));
-                                            menu.excluirConta(conta.delete(menu.getId()));
+                                            final int id = menu.getId();
+                                            if(!(conta.vazio()))menu.excluirConta(conta.delete(id));
+                                            if(contaAtual.getId() == id) contaAtual = conta.busca(atual);
                                         break;}
                                         
                                         default:
@@ -335,12 +353,12 @@ public class Program {
                     }                    
                 }
             }
-        };
+        }
     }
         
 
     public static void main(String[] args) {
-        new Program();
+        Program program = new Program();
     }
 }
 

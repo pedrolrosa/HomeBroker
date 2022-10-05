@@ -5,7 +5,6 @@
  */
 package mvc.model.dao;
 
-import java.math.BigDecimal;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
 
@@ -93,28 +92,22 @@ public class OperacaoDAO {
         }
     }
     
-//    public void update(int id, Conta origem, Conta destino, BigDecimal valor, TipoOperacao tipo, MeioOperacao meio, String descricao){
-//        if(!(this.vazio())){
-//            Operacao aux = busca(id);
-//        
-//            aux.setAccounts(origem, destino);
-//            aux.setInfo(valor, meio, tipo, descricao);
-//        }
-//    }
-    
-    public void update(int id, BigDecimal valor){
-        if(!(this.vazio())){
-            Operacao aux = busca(id);
-
-            aux.setInfo(valor);
+    public void update(Operacao alvo, Operacao altera){
+        if(!(this.vazio()) && alvo != null && altera != null){
+            alvo.setInfo(altera.getValor());
         }
     }
     
-    public void delete(int id){
+    public boolean delete(int id){
         if(!(this.vazio())){
-            final int pos = id - 1;
-        
-            operacao[pos] = null;
+            
+            for(int i =0; i < nOperacao; i++){
+                if(operacao[i] != null && operacao[i].getId() == id){
+                    operacao[i] = null;
+                    return true;
+                }
+            }
         }
+        return false;
     }
 }
