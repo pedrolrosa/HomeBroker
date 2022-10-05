@@ -8,8 +8,6 @@ package mvc.model.dao;
 import java.math.BigDecimal;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
-import mvc.model.enums.MeioOperacao;
-import mvc.model.enums.TipoOperacao;
 
 /**
  *
@@ -28,17 +26,6 @@ public class OperacaoDAO {
             if(aux.getId() == id) return aux;
         }
         return null;
-    }
-    
-    public String busca(Conta atual){
-        String result;
-        result = " ";
-        
-        for(Operacao aux : operacao){
-            if(aux.getOrigem().equals(atual) || aux.getDestino().equals(atual)) result.concat("\n" + aux.toString());
-        }
-        
-        return result;
     }
     
     public boolean vazio(){
@@ -80,7 +67,7 @@ public class OperacaoDAO {
             
             for(Operacao aux : operacao){
                 if(aux != null) {
-                    result.append(aux.toString() + "\n");
+                    result.append(aux.toString()).append("\n");
                 }
             }
             //System.out.println(result);

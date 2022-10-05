@@ -38,7 +38,11 @@ public class ContaDAO {
     
     public Conta busca(int id){
         for(Conta aux : conta){
-            if(aux.getId() == id) return aux;
+            if(aux != null){
+                if(aux.getId() == id){
+                    return aux;
+                }
+            }
         }
         return null;
     }
@@ -77,7 +81,7 @@ public class ContaDAO {
     }
     
     public String extrato(Conta atual, OperacaoDAO operacoes){
-        return operacoes.busca(atual);
+        return operacoes.read(atual);
     }
     
     public boolean vazio(){

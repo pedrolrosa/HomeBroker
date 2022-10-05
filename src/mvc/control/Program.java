@@ -77,6 +77,7 @@ public class Program {
                         esc = menu.telaADM();
                         
                         switch(esc){
+                            // menu cliente
                             case 1:{
                                 // CRUD de cliente
                                 op = 1;
@@ -85,16 +86,19 @@ public class Program {
                                     
                                     switch(op){
                                         case 1:{
+                                            // criar cliente
                                             Cliente novo = new Cliente();
                                             menu.cadastraCliente(novo);
                                             usuario.create(novo);
                                         break;}
 
                                         case 2:{
+                                            // ver clientes
                                             menu.verCliente(usuario.read());
                                         break;}
 
                                         case 3:{
+                                            // editar cliente pelo id
                                             menu.verCliente(usuario.read());
                                             final int id = menu.getId();
                                             Cliente alvo = usuario.busca(id);
@@ -102,6 +106,7 @@ public class Program {
                                         break;}
 
                                         case 4:{
+                                            // excluir cliente pelo id
                                             menu.verCliente(usuario.read());
                                             menu.excluirCliente(usuario.delete(menu.getId()));
                                         break;}
@@ -120,20 +125,27 @@ public class Program {
                                     op = menu.telaADMAtivo();
                                     
                                     switch(op){
+                                        // criar ativo
                                         case 1:{
                                             Ativo novo = new Ativo();
                                             menu.cadastraAtivo(novo);
                                             ativo.create(novo);
                                         break;}
 
+                                        // ver ativos
                                         case 2:{
                                             menu.verAtivo(ativo.read());
                                         break;}
 
+                                        // editar ativo pelo id
                                         case 3:{
-                                            //menu.atualizarAtivo();
+                                            menu.verAtivo(ativo.read());
+                                            final int id = menu.getId();
+                                            Ativo alvo = ativo.busca(id);
+                                            ativo.update(alvo, menu.atualizarAtivo(alvo));
                                         break;}
 
+                                        // excluir ativo pelo id
                                         case 4:{
                                             menu.verAtivo(ativo.read());
                                             menu.excluirAtivo(ativo.delete(menu.getId()));
@@ -245,10 +257,11 @@ public class Program {
                                                         
                                                         // tela ativos
                                                         case 2:{
-                                                            while(esc != 0){
-                                                                esc = menu.telaCOMUMAtivo();
+                                                            op = 1;
+                                                            while(op != 0){
+                                                                op = menu.telaCOMUMAtivo();
                                                                 
-                                                                switch(esc){
+                                                                switch(op){
                                                                     
                                                                 }
                                                             }
@@ -261,7 +274,6 @@ public class Program {
                                                         
                                                         // ver saldo da conta
                                                         case 4:{
-                                                            
                                                             menu.verContaSaldo(contaAtual.getSaldo().toString());
                                                         break;}
                                                         
@@ -270,6 +282,7 @@ public class Program {
                                                         break;
                                                     }
                                                 }
+                                                op =1;
                                             } 
                                         break;}
                                         

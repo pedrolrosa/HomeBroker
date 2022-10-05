@@ -101,7 +101,6 @@ public class ClienteDAO {
     public void update(Cliente alvo, Cliente altera){
         if(!(this.vazio()) && alvo != null){
             alvo.setLogin(altera.getLogin(), altera.getSenha());
-            
         }
     }
     

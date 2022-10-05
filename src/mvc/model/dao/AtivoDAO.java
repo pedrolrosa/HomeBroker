@@ -20,6 +20,13 @@ public class AtivoDAO {
         
     }
     
+    public Ativo busca(int id){
+        for(Ativo aux : ativo){
+            if(aux.getId() == id) return aux;
+        }
+        return null;
+    }
+    
     public boolean vazio(){
         for(Ativo aux : ativo){
             if(aux != null) return false;
@@ -78,9 +85,9 @@ public class AtivoDAO {
         }
     }
     
-    public void update(){
+    public void update(Ativo atual, Ativo altera){
         if(!(this.vazio())){
-            
+            atual.setInfo(altera.getEmpresa(), altera.getTicker());
         }
     }
     

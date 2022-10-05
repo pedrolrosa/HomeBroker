@@ -115,9 +115,13 @@ public class GUI {
         JOptionPane.showMessageDialog(null, ativos);
     }
     
-    public void atualizarAtivo(){
-        //final int id = Integer.parseInt(JOptionPane.showInputDialog(ativos.read() + "\nExluir com ID: "));
+    public Ativo atualizarAtivo(Ativo altera){
+        String empresa = JOptionPane.showInputDialog("Empresa: ");
+        String ticker = JOptionPane.showInputDialog("Ticker: ");
         
+        altera.setInfo(empresa, ticker);
+        
+        return altera;
     }
     
     public void excluirAtivo(boolean excluiu){

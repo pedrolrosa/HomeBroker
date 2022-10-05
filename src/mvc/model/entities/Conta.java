@@ -7,7 +7,6 @@ package mvc.model.entities;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import mvc.model.dao.AtivoDAO;
 
 /**
  *
