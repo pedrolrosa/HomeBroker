@@ -20,6 +20,15 @@ public class ClienteDAO {
         
     }    
     
+    public Cliente adm() {
+        for(Cliente aux : usuario){
+            if(aux != null){
+                if(aux.getTipo().equals(TipoUsuario.ADM)) return aux;
+            }
+        }
+        return null;
+    }
+    
     public Cliente validaLogin(String login, String senha){
         for (Cliente aux : usuario) {
             if (aux != null && aux.getLogin().equals(login) && aux.getSenha().equals(senha)) {
@@ -116,4 +125,6 @@ public class ClienteDAO {
         }
         return false;
     }
+
+    
 }

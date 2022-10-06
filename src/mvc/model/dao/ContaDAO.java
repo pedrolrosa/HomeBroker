@@ -98,6 +98,16 @@ public class ContaDAO {
         return true;
     }
     
+    public boolean vazio(Cliente atual){
+        for (Conta conta1 : conta) {
+            if (conta1 != null) {
+                if(conta1.getTitular().equals(atual))
+                        return false;
+            }
+        }
+        return true;
+    }
+    
     public boolean cheio(){
         for (Conta conta1 : conta) {
             if (conta1 == null) {
@@ -117,6 +127,8 @@ public class ContaDAO {
     public void create(Conta novo){
         if(!(this.cheio())){
             final int pos = this.posicaoLivre();           
+            
+            novo.entrada(new BigDecimal(20000));
             
             conta[pos] = novo;
         }
@@ -139,7 +151,7 @@ public class ContaDAO {
     }
     
     public String read(Cliente atual){
-        if(!(this.vazio())){
+        if(!(this.vazio(atual))){
             StringBuilder result = new StringBuilder("");
             
             for(Conta aux : conta){

@@ -41,9 +41,16 @@ public class Program {
         
         // adm teste
         usuario.create("Joao", "25302", "Jardim Uberaba", "+55 34 99345821", "adm", "123", TipoUsuario.ADM);
+        Conta bolsa = new Conta();
+        bolsa.entrada(new BigDecimal(500000));
+        bolsa.setTitular(usuario.adm());
+        conta.create(bolsa);
         
         // usuario teste
         usuario.create("Pedro", "32145", "Vallim", "+55 34 99845404", "ped", "321", TipoUsuario.COMUM);
+        
+        // ativo teste
+        ativo.create("tucos taxi", "tuc", 10, BigDecimal.TEN);
         
         int esc, op;
         boolean on = true;
@@ -177,6 +184,7 @@ public class Program {
                             // CRUD e administração da conta atual do usuario comum
                             case 1:{
                                 op = 1;
+                                contaAtual = conta.busca(atual);
                                 while(op != 0){
                                     
                                     op = menu.telaCOMUMConta(contaAtual);
@@ -285,9 +293,13 @@ public class Program {
                                                                                 if(novaExecucao != null){
                                                                                     ordemExecucao.create(novaExecucao);
                                                                                     
+                                                                                    AtivoConta relacao = new AtivoConta();
+                                                                                    menu.gerarRelacaoAtivoConta(contaAtual, alvo, relacao);
                                                                                     
+                                                                                    relacaoAtivoConta.create(relacao, op);
+                                                                                    menu.operacaoRealizada(ordem.delete(novo));
                                                                                 }
-                                                                                menu.operacaoRealizada(ordem.delete(novo));
+                                                                                
                                                                             }
                                                                         }
                                                                     break;}
@@ -299,7 +311,7 @@ public class Program {
                                                                     
                                                                     // mostra os ativos que o usuario possui
                                                                     case 3:{
-                                                                        
+                                                                        menu.verAtivo(relacaoAtivoConta.read(contaAtual));
                                                                     break;}
                                                                     
                                                                     default:
@@ -341,7 +353,7 @@ public class Program {
                                         case 3:{
                                             // trocar conta pelo id
                                             menu.verConta(conta.read(atual));
-                                            if(!(conta.vazio()))contaAtual = conta.busca(menu.trocaConta(atual));
+                                            if(!(conta.vazio(atual)))contaAtual = conta.busca(menu.trocaConta(atual));
                                         break;}
                                         
                                         case 4:{
@@ -353,9 +365,9 @@ public class Program {
                                             // excluir conta pelo id
                                             menu.verConta(conta.read(atual));
                                             Integer id = null;
-                                            if(!(conta.vazio())){
-                                                menu.excluirConta(conta.delete(menu.getId()));
+                                            if(!(conta.vazio(atual))){
                                                 id = menu.getId();
+                                                menu.excluirConta(conta.delete(id));
                                             }
                                             if(id != null){
                                                 if(contaAtual.getId() == id) contaAtual = conta.busca(atual);

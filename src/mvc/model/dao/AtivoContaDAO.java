@@ -42,11 +42,11 @@ public class AtivoContaDAO {
         return -1;
     }
     
-    public void create(AtivoConta novo){
+    public void create(AtivoConta novo, int quantidade){
         if(!(this.cheio())){
-            final int pos = this.posicaoLivre();
-
-            relacao[pos] = novo;
+            for(int i = this.posicaoLivre(), cont =0; i < nAtivoConta && cont <= quantidade; i++, cont++){
+                relacao[this.posicaoLivre()] = novo;
+            }
         }
     }
     

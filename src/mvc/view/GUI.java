@@ -226,9 +226,9 @@ public class GUI {
         novo.setTicker(ativo.getTicker());
         novo.setTypes(tipo, EstadoOrdem.TOTAL);
         
-        if(atual.getSaldo().subtract(novo.getValorTotal()).compareTo(BigDecimal.ZERO) == -1){
-            novo = null;
-        } 
+//        if(atual.getSaldo().subtract(novo.getValorTotal()).compareTo(BigDecimal.ZERO) == -1){
+//            novo = null;
+//        } 
         
         return novo;
     }

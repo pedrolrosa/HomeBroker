@@ -141,10 +141,7 @@ public class Ordem {
         if (!Objects.equals(this.valorTotal, other.valorTotal)) {
             return false;
         }
-        if (!Objects.equals(this.data, other.data)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.data, other.data);
     }
 
     @Override

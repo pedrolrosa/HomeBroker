@@ -130,10 +130,7 @@ public class Cliente {
         if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
-        if (this.tipo != other.tipo) {
-            return false;
-        }
-        return true;
+        return this.tipo == other.tipo;
     }
 
     @Override

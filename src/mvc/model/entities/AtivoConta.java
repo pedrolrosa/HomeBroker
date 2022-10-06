@@ -69,10 +69,7 @@ public class AtivoConta {
         if (!Objects.equals(this.ativo, other.ativo)) {
             return false;
         }
-        if (!Objects.equals(this.conta, other.conta)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.conta, other.conta);
     }
 
     @Override

@@ -64,7 +64,6 @@ public class Operacao {
     }
     
     public void setInfo(MeioOperacao meio, TipoOperacao tipo, String descricao){
-        this.valor = valor;
         this.meio = meio;
         this.tipo = tipo;
         this.descricao = descricao;
@@ -130,10 +129,7 @@ public class Operacao {
         if (!Objects.equals(this.origem, other.origem)) {
             return false;
         }
-        if (!Objects.equals(this.destino, other.destino)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.destino, other.destino);
     }
 
     @Override

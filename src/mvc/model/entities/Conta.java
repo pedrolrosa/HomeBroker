@@ -115,10 +115,7 @@ public class Conta {
         if (!Objects.equals(this.data, other.data)) {
             return false;
         }
-        if (!Objects.equals(this.titular, other.titular)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.titular, other.titular);
     }
 
     @Override

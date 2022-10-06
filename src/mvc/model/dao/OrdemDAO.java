@@ -5,7 +5,6 @@
  */
 package mvc.model.dao;
 
-import java.math.BigDecimal;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Ordem;
 import mvc.model.entities.OrdemExecucao;
@@ -24,7 +23,14 @@ public class OrdemDAO {
     }
     
     public OrdemExecucao satisfaz(Ordem nova){
-        for(Ordem aux : ordem){
+        if(nova.getTipo().equals(TipoOrdem.ZERO)){
+            OrdemExecucao ordemGerada = new OrdemExecucao();
+            ordemGerada.setOrdem(nova);
+            ordemGerada.setCompra(nova.getConta());
+            ordemGerada.setVenda(null);
+            return ordemGerada;
+        } else {
+            for(Ordem aux : ordem){
             if(aux != null){
                 if(!(nova.getTipo().equals(aux.getTipo()))){
                     if(nova.getTipo().equals(TipoOrdem.COMPRA)){
@@ -47,6 +53,8 @@ public class OrdemDAO {
                 }
             }
         }
+        }
+        
         return null;
     }
     
@@ -72,7 +80,7 @@ public class OrdemDAO {
     }
     
     public void create(Ordem novo){
-        if(!(this.cheio()) && !(novo.getTipo().equals(TipoOrdem.ZERO))){
+        if(!(this.cheio())){
             final int pos = this.posicaoLivre();           
             
             ordem[pos] = novo;
@@ -131,15 +139,16 @@ public class OrdemDAO {
     }
     
     public boolean delete(Ordem alvo){
+        boolean flag = false;
         if(!(this.vazio())){
             
             for(int i =0; i < nOrdem; i++){
                 if(ordem[i] != null && ordem[i].equals(alvo)){
                     ordem[i] = null;
-                    return true;
+                    flag = true;
                 }
             }
         }
-        return false;
+        return flag;
     }
 }

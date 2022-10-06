@@ -5,7 +5,6 @@
  */
 package mvc.model.entities;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -104,10 +103,7 @@ public class OrdemExecucao {
         if (!Objects.equals(this.quantidade, other.quantidade)) {
             return false;
         }
-        if (!Objects.equals(this.data, other.data)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.data, other.data);
     }
 
     @Override
