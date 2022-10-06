@@ -208,23 +208,27 @@ public class GUI {
         return Integer.parseInt(JOptionPane.showInputDialog("1 - Comprar / Vender\n2 - Meus Ativos\n0 - Voltar\nSua escolha: "));
     }
     
-    public void novaOrdem(Conta atual, Ativo ativo, Ordem novo){
+    public Ordem novaOrdem(Conta atual, Ativo ativo, Ordem novo){
         Integer qtd = Integer.parseInt(JOptionPane.showInputDialog("Quantidade : "));
         TipoOrdem tipo = TipoOrdem.valueOf(JOptionPane.showInputDialog("Ordem : "));
         
         if(tipo.equals(TipoOrdem.ZERO)){
-            
-            BigDecimal precoInicial = new BigDecimal(10);
-            
-            novo.setValues(qtd, precoInicial, precoInicial.multiply(new BigDecimal(qtd)));
+            novo.setValues(qtd, ativo.getPrecoInicial(), ativo.getPrecoInicial().multiply(new BigDecimal(qtd)));
         } else {
             BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor: "));
             
             novo.setValues(qtd, valor, valor.multiply(new BigDecimal(qtd)));
         }
+        
+        
         novo.setConta(atual);
         novo.setTicker(ativo.getTicker());
         novo.setTypes(tipo, EstadoOrdem.TOTAL);
+        
+        if(atual.getSaldo().subtract(novo.getValorTotal()).compareTo(BigDecimal.ZERO) == -1){
+            novo = null;
+        }
+        return novo;
     }
     
     public void verOrdem(String ordens){

@@ -237,6 +237,8 @@ public class Program {
                                                                         menu.verConta(conta.read());
                                                                         final int id = menu.getId();
                                                                         
+                                                                        if(contaAtual.getId() != id)
+                                                                        
                                                                         if(menu.operacaoRealizada(conta.transferencia(contaAtual, id, valor))){
                                                                             menu.novaOperacao(novo, MeioOperacao.TRANSFERENCIA, contaAtual, conta.busca(id));
                                                                             operacao.create(novo);
@@ -267,7 +269,11 @@ public class Program {
                                                                         menu.verAtivo(ativo.read());
                                                                         if(!(ativo.vazio())){
                                                                             Ordem novo = new Ordem();
-                                                                            menu.novaOrdem(contaAtual, ativo.busca(menu.getId()), novo);
+                                                                            novo = menu.novaOrdem(contaAtual, ativo.busca(menu.getId()), novo);
+                                                                            
+                                                                            if(novo != null){
+                                                                                ordem.create(novo);
+                                                                            }
                                                                         }
                                                                     break;}
                                                                     
@@ -326,9 +332,14 @@ public class Program {
                                         case 5:{
                                             // excluir conta pelo id
                                             menu.verConta(conta.read(atual));
-                                            final int id = menu.getId();
-                                            if(!(conta.vazio()))menu.excluirConta(conta.delete(id));
-                                            if(contaAtual.getId() == id) contaAtual = conta.busca(atual);
+                                            Integer id = null;
+                                            if(!(conta.vazio())){
+                                                menu.excluirConta(conta.delete(menu.getId()));
+                                                id = menu.getId();
+                                            }
+                                            if(id != null){
+                                                if(contaAtual.getId() == id) contaAtual = conta.busca(atual);
+                                            }
                                         break;}
                                         
                                         default:

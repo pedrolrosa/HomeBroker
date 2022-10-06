@@ -5,8 +5,11 @@
  */
 package mvc.model.dao;
 
+import java.math.BigDecimal;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Ordem;
+import mvc.model.entities.OrdemExecucao;
+import mvc.model.enums.TipoOrdem;
 
 /**
  *
@@ -18,6 +21,33 @@ public class OrdemDAO {
     
     public OrdemDAO(){
         
+    }
+    
+    public OrdemExecucao satisfaz(Ordem nova){
+        for(Ordem aux : ordem){
+            if(aux != null){
+                if(!(nova.getTipo().equals(aux.getTipo()))){
+                    if(nova.getTipo().equals(TipoOrdem.COMPRA)){
+                        if(nova.getValor().compareTo(aux.getValor()) >= 0){
+                            OrdemExecucao ordemGerada = new OrdemExecucao();
+                            ordemGerada.setOrdem(nova);
+                            ordemGerada.setCompra(nova.getConta());
+                            ordemGerada.setVenda(aux.getConta());
+                            return ordemGerada;
+                        } 
+                    } else if(nova.getTipo().equals(TipoOrdem.VENDA)){
+                        if(nova.getValor().compareTo(aux.getValor()) <= 0){
+                            OrdemExecucao ordemGerada = new OrdemExecucao();
+                            ordemGerada.setOrdem(nova);
+                            ordemGerada.setCompra(aux.getConta());
+                            ordemGerada.setVenda(nova.getConta());
+                            return ordemGerada;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
     
     public boolean vazio(){

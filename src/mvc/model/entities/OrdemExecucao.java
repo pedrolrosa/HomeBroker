@@ -25,7 +25,7 @@ public class OrdemExecucao {
     private Data data;
     
     public OrdemExecucao(){
-        this.id = ++this.serial;
+        this.id = ++OrdemExecucao.serial;
         this.quantidade = 1;
     }
 
