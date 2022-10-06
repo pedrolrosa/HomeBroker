@@ -8,6 +8,7 @@ package mvc.view;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 import mvc.model.entities.Ativo;
+import mvc.model.entities.AtivoConta;
 import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
@@ -205,7 +206,7 @@ public class GUI {
     }
     
     public Integer telaCOMUMAtivo(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Comprar / Vender\n2 - Meus Ativos\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Comprar / Vender\n2 - Minhas Ordens\n3 - Meus Ativos\n0 - Voltar\nSua escolha: "));
     }
     
     public Ordem novaOrdem(Conta atual, Ativo ativo, Ordem novo){
@@ -233,5 +234,10 @@ public class GUI {
     
     public void verOrdem(String ordens){
         JOptionPane.showMessageDialog(null, ordens);
+    }
+    
+    public void gerarRelacaoAtivoConta(Conta atual, Ativo alvo, AtivoConta novo){
+        novo.setAtivo(alvo);
+        novo.setConta(atual);
     }
 }

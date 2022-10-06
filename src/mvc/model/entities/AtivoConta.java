@@ -22,6 +22,10 @@ public class AtivoConta {
         this.id = ++this.serial;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public Ativo getAtivo() {
         return ativo;
     }

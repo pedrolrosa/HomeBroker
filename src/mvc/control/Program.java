@@ -2,12 +2,14 @@ package mvc.control;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import mvc.model.dao.AtivoContaDAO;
 import mvc.model.dao.AtivoDAO;
 import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
 import mvc.model.dao.OperacaoDAO;
 import mvc.model.dao.OrdemDAO;
 import mvc.model.entities.Ativo;
+import mvc.model.entities.AtivoConta;
 import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
@@ -22,6 +24,7 @@ public class Program {
     private OperacaoDAO operacao = new OperacaoDAO();
     private AtivoDAO ativo = new AtivoDAO();
     private OrdemDAO ordem = new OrdemDAO();
+    private AtivoContaDAO relacaoAtivoConta = new AtivoContaDAO();
     
     private Cliente atual = null;
     private Conta contaAtual = null;
@@ -269,10 +272,14 @@ public class Program {
                                                                         menu.verAtivo(ativo.read());
                                                                         if(!(ativo.vazio())){
                                                                             Ordem novo = new Ordem();
-                                                                            novo = menu.novaOrdem(contaAtual, ativo.busca(menu.getId()), novo);
+                                                                            Ativo alvo = ativo.busca(menu.getId());
+                                                                            novo = menu.novaOrdem(contaAtual, alvo, novo);
                                                                             
                                                                             if(novo != null){
                                                                                 ordem.create(novo);
+                                                                                AtivoConta novaRelacao = new AtivoConta();
+                                                                                menu.gerarRelacaoAtivoConta(contaAtual, alvo, novaRelacao);
+                                                                                relacaoAtivoConta.create(novaRelacao);
                                                                             }
                                                                         }
                                                                     break;}
@@ -280,6 +287,11 @@ public class Program {
                                                                     // mostra as ordens do usuario
                                                                     case 2:{
                                                                         menu.verOrdem(ordem.read(contaAtual));
+                                                                    break;}
+                                                                    
+                                                                    // mostra os ativos que o usuario possui
+                                                                    case 3:{
+                                                                        
                                                                     break;}
                                                                     
                                                                     default:

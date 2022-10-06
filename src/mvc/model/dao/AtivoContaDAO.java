@@ -12,7 +12,7 @@ import mvc.model.entities.AtivoConta;
  * @author pedro
  */
 public class AtivoContaDAO {
-    final int nAtivoConta = 50;
+    final int nAtivoConta = 100;
     private final AtivoConta[] relacao = new AtivoConta[nAtivoConta];
     
     public AtivoContaDAO(){
@@ -40,15 +40,27 @@ public class AtivoContaDAO {
         return -1;
     }
     
-    public void create(){
+    public void create(AtivoConta novo){
         if(!(this.cheio())){
-            
+            final int pos = this.posicaoLivre();
+
+            relacao[pos] = novo;
         }
     }
     
-    public void read(){
+    public String read(){
         if(!(this.vazio())){
+            StringBuilder result = new StringBuilder("");
             
+            for(AtivoConta aux : relacao){
+                if(aux != null) {
+                    result.append(aux.toString()).append("\n");
+                }
+            }
+            //System.out.println(result);
+            return result.toString();
+        } else {
+            return "Nenhum ativo existente";
         }
     }
     
@@ -58,9 +70,16 @@ public class AtivoContaDAO {
         }
     }
     
-    public void delete(){
+    public boolean delete(int id){
         if(!(this.vazio())){
             
+            for(int i =0; i < nAtivoConta; i++){
+                if(relacao[i] != null && relacao[i].getId() == id){
+                    relacao[i] = null;
+                    return true;
+                }
+            }
         }
+        return false;
     }
 }
