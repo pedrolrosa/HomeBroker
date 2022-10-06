@@ -17,7 +17,6 @@ import mvc.model.entities.Operacao;
 import mvc.model.entities.Ordem;
 import mvc.model.entities.OrdemExecucao;
 import mvc.model.enums.MeioOperacao;
-import mvc.model.enums.TipoOrdem;
 import mvc.model.enums.TipoUsuario;
 import mvc.view.GUI;
 
@@ -292,11 +291,13 @@ public class Program {
                                                                                 OrdemExecucao novaExecucao = ordem.satisfaz(novo);
                                                                                 if(novaExecucao != null){
                                                                                     ordemExecucao.create(novaExecucao);
+                                                                                    novaExecucao.getVenda().entrada(novo.getValorTotal());
+                                                                                    novaExecucao.getCompra().retirada(novo.getValorTotal());
                                                                                     
                                                                                     AtivoConta relacao = new AtivoConta();
                                                                                     menu.gerarRelacaoAtivoConta(contaAtual, alvo, relacao);
                                                                                     
-                                                                                    relacaoAtivoConta.create(relacao, op);
+                                                                                    relacaoAtivoConta.create(relacao, novo.getQtd());
                                                                                     menu.operacaoRealizada(ordem.delete(novo));
                                                                                 }
                                                                                 
