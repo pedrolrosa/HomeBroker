@@ -8,12 +8,14 @@ import mvc.model.dao.ClienteDAO;
 import mvc.model.dao.ContaDAO;
 import mvc.model.dao.OperacaoDAO;
 import mvc.model.dao.OrdemDAO;
+import mvc.model.dao.OrdemExecucaoDAO;
 import mvc.model.entities.Ativo;
 import mvc.model.entities.AtivoConta;
 import mvc.model.entities.Cliente;
 import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
 import mvc.model.entities.Ordem;
+import mvc.model.entities.OrdemExecucao;
 import mvc.model.enums.MeioOperacao;
 import mvc.model.enums.TipoOrdem;
 import mvc.model.enums.TipoUsuario;
@@ -25,6 +27,7 @@ public class Program {
     private OperacaoDAO operacao = new OperacaoDAO();
     private AtivoDAO ativo = new AtivoDAO();
     private OrdemDAO ordem = new OrdemDAO();
+    private OrdemExecucaoDAO ordemExecucao = new OrdemExecucaoDAO();
     private AtivoContaDAO relacaoAtivoConta = new AtivoContaDAO();
     
     private Cliente atual = null;
@@ -278,11 +281,13 @@ public class Program {
                                                                             
                                                                             if(novo != null){
                                                                                 ordem.create(novo);
-                                                                                if(novo.getTipo().equals(TipoOrdem.COMPRA)){
-                                                                                    AtivoConta novaRelacao = new AtivoConta();
-                                                                                    menu.gerarRelacaoAtivoConta(contaAtual, alvo, novaRelacao);
-                                                                                    relacaoAtivoConta.create(novaRelacao);
+                                                                                OrdemExecucao novaExecucao = ordem.satisfaz(novo);
+                                                                                if(novaExecucao != null){
+                                                                                    ordemExecucao.create(novaExecucao);
+                                                                                    
+                                                                                    
                                                                                 }
+                                                                                menu.operacaoRealizada(ordem.delete(novo));
                                                                             }
                                                                         }
                                                                     break;}

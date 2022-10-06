@@ -72,7 +72,7 @@ public class OrdemDAO {
     }
     
     public void create(Ordem novo){
-        if(!(this.cheio())){
+        if(!(this.cheio()) && !(novo.getTipo().equals(TipoOrdem.ZERO))){
             final int pos = this.posicaoLivre();           
             
             ordem[pos] = novo;
@@ -122,6 +122,19 @@ public class OrdemDAO {
             
             for(int i =0; i < nOrdem; i++){
                 if(ordem[i] != null && ordem[i].getId() == id){
+                    ordem[i] = null;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean delete(Ordem alvo){
+        if(!(this.vazio())){
+            
+            for(int i =0; i < nOrdem; i++){
+                if(ordem[i] != null && ordem[i].equals(alvo)){
                     ordem[i] = null;
                     return true;
                 }

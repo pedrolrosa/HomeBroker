@@ -237,6 +237,14 @@ public class GUI {
         JOptionPane.showMessageDialog(null, ordens);
     }
     
+    public void ordemExecutada(boolean ordem){
+        if(ordem){
+            JOptionPane.showMessageDialog(null, "Ordem Executada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Ordem na Fila");
+        }
+    }
+    
     public void gerarRelacaoAtivoConta(Conta atual, Ativo alvo, AtivoConta novo){
         novo.setAtivo(alvo);
         novo.setConta(atual);

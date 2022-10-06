@@ -42,13 +42,7 @@ public class OrdemExecucaoDAO {
     
     public void create(OrdemExecucao novo){
         if(!(this.cheio())){
-            final int pos = this.posicaoLivre(); 
-            
-            for(OrdemExecucao aux : ordemExecucao){
-                if(aux != null){
-                    if(aux.getOrdem().getValor().compareTo(novo.getOrdem().getValor()) == 0) aux.addQuantidade();
-                }
-            }
+            final int pos = this.posicaoLivre();
             
             ordemExecucao[pos] = novo;
         }

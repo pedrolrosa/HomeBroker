@@ -5,7 +5,9 @@
  */
 package mvc.model.dao;
 
+import mvc.model.entities.Ativo;
 import mvc.model.entities.AtivoConta;
+import mvc.model.entities.Conta;
 
 /**
  *
@@ -61,6 +63,40 @@ public class AtivoContaDAO {
             return result.toString();
         } else {
             return "Nenhum ativo existente";
+        }
+    }
+    
+    public String read(Conta atual){
+        if(!(this.vazio())){
+            StringBuilder result = new StringBuilder("");
+            
+            for(AtivoConta aux : relacao){
+                if(aux != null) {
+                    if(aux.getConta().equals(atual))
+                        result.append(aux.toString()).append("\n");
+                }
+            }
+            //System.out.println(result);
+            return result.toString();
+        } else {
+            return "Nenhum ativo existente na conta";
+        }
+    }
+    
+    public String read(Ativo alvo){
+        if(!(this.vazio())){
+            StringBuilder result = new StringBuilder("");
+            
+            for(AtivoConta aux : relacao){
+                if(aux != null) {
+                    if(aux.getAtivo().equals(alvo))
+                        result.append(aux.toString()).append("\n");
+                }
+            }
+            //System.out.println(result);
+            return result.toString();
+        } else {
+            return "Nenhum ativo existente na conta";
         }
     }
     
