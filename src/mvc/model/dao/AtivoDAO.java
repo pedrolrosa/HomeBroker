@@ -48,7 +48,7 @@ public class AtivoDAO {
         return -1;
     }
     
-    public void create(String empresa, String ticker, BigDecimal total, BigDecimal valor){
+    public void create(String empresa, String ticker, int total, BigDecimal valor){
         if(!(this.cheio())){
             final int pos = this.posicaoLivre();
 

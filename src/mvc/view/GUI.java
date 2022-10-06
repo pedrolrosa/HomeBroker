@@ -109,7 +109,7 @@ public class GUI {
         String ticker = JOptionPane.showInputDialog("Ticker: ");
         
         BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor: "));
-        BigDecimal total = new BigDecimal(JOptionPane.showInputDialog("Total de ativos: "));
+        int total = Integer.parseInt(JOptionPane.showInputDialog("Total de ativos: "));
         
         novo.setInfo(empresa, ticker);
         novo.setValues(total, valor);
@@ -228,7 +228,8 @@ public class GUI {
         
         if(atual.getSaldo().subtract(novo.getValorTotal()).compareTo(BigDecimal.ZERO) == -1){
             novo = null;
-        }
+        } 
+        
         return novo;
     }
     

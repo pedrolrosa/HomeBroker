@@ -15,6 +15,7 @@ import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
 import mvc.model.entities.Ordem;
 import mvc.model.enums.MeioOperacao;
+import mvc.model.enums.TipoOrdem;
 import mvc.model.enums.TipoUsuario;
 import mvc.view.GUI;
 
@@ -277,9 +278,11 @@ public class Program {
                                                                             
                                                                             if(novo != null){
                                                                                 ordem.create(novo);
-                                                                                AtivoConta novaRelacao = new AtivoConta();
-                                                                                menu.gerarRelacaoAtivoConta(contaAtual, alvo, novaRelacao);
-                                                                                relacaoAtivoConta.create(novaRelacao);
+                                                                                if(novo.getTipo().equals(TipoOrdem.COMPRA)){
+                                                                                    AtivoConta novaRelacao = new AtivoConta();
+                                                                                    menu.gerarRelacaoAtivoConta(contaAtual, alvo, novaRelacao);
+                                                                                    relacaoAtivoConta.create(novaRelacao);
+                                                                                }
                                                                             }
                                                                         }
                                                                     break;}

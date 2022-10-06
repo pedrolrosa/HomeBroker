@@ -19,7 +19,7 @@ public class AtivoConta {
     private Conta conta;
     
     public AtivoConta(){
-        this.id = ++this.serial;
+        this.id = ++AtivoConta.serial;
     }
 
     public int getId() {

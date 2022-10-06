@@ -19,7 +19,7 @@ public class Ativo {
     private String empresa;
     private String ticker;
     
-    private BigDecimal total;
+    private int total;
     private BigDecimal precoInicial;
     private BigDecimal precoAtual;
     
@@ -41,7 +41,7 @@ public class Ativo {
         return ticker;
     }
 
-    public BigDecimal getTotal() {
+    public int getTotal() {
         return total;
     }
 
@@ -62,7 +62,7 @@ public class Ativo {
         this.ticker = ticker;
     }
     
-    public void setValues(BigDecimal total, BigDecimal valor){
+    public void setValues(int total, BigDecimal valor){
         this.total = total;
         this.precoInicial = valor;
     }
