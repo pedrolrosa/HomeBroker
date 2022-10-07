@@ -5,6 +5,7 @@
  */
 package mvc.model.dao;
 
+import java.math.BigDecimal;
 import mvc.model.entities.Ativo;
 import mvc.model.entities.AtivoConta;
 import mvc.model.entities.Conta;
@@ -19,6 +20,24 @@ public class AtivoContaDAO {
     
     public AtivoContaDAO(){
         
+    }
+    
+    public int nAtivos(Conta atual){
+        int cont = 0;
+        for(AtivoConta aux : relacao){
+            if(aux != null){
+                if(aux.getConta().equals(atual)) cont++;
+            }
+        }
+        return cont;
+    }
+    
+    public void pagarDividendos(int id, BigDecimal valor){
+        for(AtivoConta aux : relacao){
+            if(aux != null){
+                if(aux.getId() == (id)) aux.getConta().entrada(valor);
+            }
+        }
     }
     
     public boolean vazio(){
@@ -44,7 +63,7 @@ public class AtivoContaDAO {
     
     public void create(AtivoConta novo, int quantidade){
         if(!(this.cheio())){
-            for(int i = this.posicaoLivre(), cont =0; i < nAtivoConta && cont <= quantidade; i++, cont++){
+            for(int i = this.posicaoLivre(), cont =1; i < nAtivoConta && cont <= quantidade; i++, cont++){
                 relacao[this.posicaoLivre()] = novo;
             }
         }
@@ -103,6 +122,16 @@ public class AtivoContaDAO {
     public void update(){
         if(!(this.vazio())){
             
+        }
+    }
+    
+    public void delete(String ticker, Conta dono, int qtd){
+        if(!(this.vazio())){
+            for(int i =0, cont = 1; i < nAtivoConta && cont <= qtd; i++, cont++){
+                if(relacao[i] != null){
+                    if(relacao[i].getAtivo().getTicker().equals(ticker) && relacao[i].getConta().equals(dono)) relacao[i] = null;
+                }
+            }
         }
     }
     

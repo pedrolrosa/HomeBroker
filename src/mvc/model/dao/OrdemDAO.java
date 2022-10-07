@@ -22,7 +22,7 @@ public class OrdemDAO {
         
     }
     
-    public OrdemExecucao satisfaz(Ordem nova){
+    public OrdemExecucao satisfaz(Ordem nova, AtivoContaDAO relacao){
         if(nova.getTipo().equals(TipoOrdem.ZERO)){
             OrdemExecucao ordemGerada = new OrdemExecucao();
             ordemGerada.setOrdem(nova);
@@ -42,12 +42,16 @@ public class OrdemDAO {
                             return ordemGerada;
                         } 
                     } else if(nova.getTipo().equals(TipoOrdem.VENDA)){
-                        if(nova.getValor().compareTo(aux.getValor()) <= 0){
-                            OrdemExecucao ordemGerada = new OrdemExecucao();
-                            ordemGerada.setOrdem(nova);
-                            ordemGerada.setCompra(aux.getConta());
-                            ordemGerada.setVenda(nova.getConta());
-                            return ordemGerada;
+                        
+                        if(!(relacao.nAtivos(nova.getConta()) < nova.getQtd())){
+                            relacao.delete(nova.getTicker(), nova.getConta(), nova.getQtd());
+                            if(nova.getValor().compareTo(aux.getValor()) <= 0){
+                                OrdemExecucao ordemGerada = new OrdemExecucao();
+                                ordemGerada.setOrdem(nova);
+                                ordemGerada.setCompra(aux.getConta());
+                                ordemGerada.setVenda(nova.getConta());
+                                return ordemGerada;
+                            }
                         }
                     }
                 }
@@ -94,6 +98,23 @@ public class OrdemDAO {
             for(Ordem aux : ordem){
                 if(aux != null) {
                     result.append(aux.toString()).append("\n");
+                }
+            }
+            //System.out.println(result);
+            return result.toString();
+        } else {
+            return "Nenhuma ordem existente";
+        }
+    }
+    
+    public String read(String ticker){
+        if(!(this.vazio())){
+            StringBuilder result = new StringBuilder("");
+            
+            for(Ordem aux : ordem){
+                if(aux != null) {
+                    if(aux.getTicker().equals(ticker))
+                        result.append(aux.toString()).append("\n");
                 }
             }
             //System.out.println(result);

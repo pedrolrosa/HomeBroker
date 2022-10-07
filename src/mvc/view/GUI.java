@@ -52,6 +52,12 @@ public class GUI {
         return id;
     }
     
+    public String getTicker(){
+        String ticker = JOptionPane.showInputDialog("Ticker: ");
+        
+        return ticker;
+    }
+    
     public BigDecimal setValor(){
         final BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor : "));
         
@@ -59,7 +65,7 @@ public class GUI {
     }
     
     public Integer telaADM(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Menu Cliente\n2 - Menu Ativo\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Menu Cliente\n2 - Menu Ativo\n3 - Pagar Dividendos\n0 - Voltar\nSua escolha: "));
     }
     
     public Integer telaADMCliente(){

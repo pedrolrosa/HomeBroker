@@ -18,6 +18,7 @@ import mvc.model.entities.Ordem;
 import mvc.model.entities.OrdemExecucao;
 import mvc.model.enums.MeioOperacao;
 import mvc.model.enums.TipoUsuario;
+import mvc.model.enums.TipoOrdem;
 import mvc.view.GUI;
 
 public class Program {
@@ -48,8 +49,17 @@ public class Program {
         // usuario teste
         usuario.create("Pedro", "32145", "Vallim", "+55 34 99845404", "ped", "321", TipoUsuario.COMUM);
         
+        // usuario teste
+        usuario.create("Eduardo", "43211", "Jardim Espanha", "+55 34 12345667", "edu", "123", TipoUsuario.COMUM);
+        
         // ativo teste
         ativo.create("tucos taxi", "tuc", 10, BigDecimal.TEN);
+        
+        // ativo teste
+        ativo.create("carl johnson", "cj", 10, BigDecimal.TEN);
+        
+        // ativo teste
+        ativo.create("tvn", "tvn", 10, BigDecimal.TEN);
         
         int esc, op;
         boolean on = true;
@@ -170,6 +180,14 @@ public class Program {
                                     }
                                 }
                             break;}
+                            
+                            // pagar dividendos
+                            case 3:{
+                                menu.verAtivo(ativo.read());
+                                final int id = menu.getId();
+                                BigDecimal valor = menu.setValor();
+                                relacaoAtivoConta.pagarDividendos(id, valor);
+                            break;}
                         }
                     }
                 // se o cliente logado nao for adm, entao ele sera comum
@@ -183,7 +201,6 @@ public class Program {
                             // CRUD e administração da conta atual do usuario comum
                             case 1:{
                                 op = 1;
-                                contaAtual = conta.busca(atual);
                                 while(op != 0){
                                     
                                     op = menu.telaCOMUMConta(contaAtual);
@@ -288,11 +305,13 @@ public class Program {
                                                                             
                                                                             if(novo != null){
                                                                                 ordem.create(novo);
-                                                                                OrdemExecucao novaExecucao = ordem.satisfaz(novo);
+                                                                                OrdemExecucao novaExecucao = ordem.satisfaz(novo, relacaoAtivoConta);
                                                                                 if(novaExecucao != null){
                                                                                     ordemExecucao.create(novaExecucao);
-                                                                                    novaExecucao.getVenda().entrada(novo.getValorTotal());
-                                                                                    novaExecucao.getCompra().retirada(novo.getValorTotal());
+                                                                                    if(!(novo.getTipo().equals(TipoOrdem.ZERO))){
+                                                                                        novaExecucao.getVenda().entrada(novo.getValorTotal());
+                                                                                        novaExecucao.getCompra().retirada(novo.getValorTotal());
+                                                                                    }
                                                                                     
                                                                                     AtivoConta relacao = new AtivoConta();
                                                                                     menu.gerarRelacaoAtivoConta(contaAtual, alvo, relacao);
@@ -324,7 +343,9 @@ public class Program {
                                                         
                                                         // book de ofertas
                                                         case 3:{
-                                                            menu.verOrdem(ordem.read());
+                                                            menu.verAtivo(ativo.read());
+                                                            final String ticker = menu.getTicker();
+                                                            menu.verOrdem(ordem.read(ticker));
                                                         break;}
                                                         
                                                         // ver saldo da conta
