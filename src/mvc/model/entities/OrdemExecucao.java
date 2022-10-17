@@ -60,8 +60,8 @@ public class OrdemExecucao {
         return quantidade;
     }
 
-    public void addQuantidade() {
-        this.quantidade += quantidade;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     @Override

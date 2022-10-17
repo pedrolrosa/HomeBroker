@@ -21,7 +21,6 @@ public class Ativo {
     
     private int total;
     private BigDecimal precoInicial;
-    private BigDecimal precoAtual;
     
     private Data data;
     
@@ -49,10 +48,6 @@ public class Ativo {
         return precoInicial;
     }
 
-    public BigDecimal getPrecoAtual() {
-        return precoAtual;
-    }
-
     public Data getData() {
         return data;
     }
@@ -66,9 +61,11 @@ public class Ativo {
         this.total = total;
         this.precoInicial = valor;
     }
-
-    public void setPrecoAtual(BigDecimal precoAtual) {
-        this.precoAtual = precoAtual;
+    
+    public void subTotal(int qtd){
+        if(this.total - qtd >= 0){
+            this.total -= qtd;
+        }
     }
 
     @Override
@@ -79,7 +76,6 @@ public class Ativo {
         hash = 59 * hash + Objects.hashCode(this.ticker);
         hash = 59 * hash + Objects.hashCode(this.total);
         hash = 59 * hash + Objects.hashCode(this.precoInicial);
-        hash = 59 * hash + Objects.hashCode(this.precoAtual);
         hash = 59 * hash + Objects.hashCode(this.data);
         return hash;
     }
@@ -111,9 +107,6 @@ public class Ativo {
         if (!Objects.equals(this.precoInicial, other.precoInicial)) {
             return false;
         }
-        if (!Objects.equals(this.precoAtual, other.precoAtual)) {
-            return false;
-        }
         if (!Objects.equals(this.data, other.data)) {
             return false;
         }
@@ -122,6 +115,6 @@ public class Ativo {
 
     @Override
     public String toString() {
-        return "Ativo{" + "id=" + id + ", empresa=" + empresa + ", ticker=" + ticker + ", total=" + total + ", precoInicial=" + precoInicial + ", precoAtual=" + precoAtual + ", data=" + data + '}';
+        return "Ativo{" + "id=" + id + ", empresa=" + empresa + ", ticker=" + ticker + ", total=" + total + ", precoInicial=" + precoInicial  + ", data=" + data + '}';
     }
 }

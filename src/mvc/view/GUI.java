@@ -215,28 +215,62 @@ public class GUI {
         return Integer.parseInt(JOptionPane.showInputDialog("1 - Comprar / Vender\n2 - Minhas Ordens\n3 - Meus Ativos\n0 - Voltar\nSua escolha: "));
     }
     
-    public Ordem novaOrdem(Conta atual, Ativo ativo, Ordem novo){
-        Integer qtd = Integer.parseInt(JOptionPane.showInputDialog("Quantidade : "));
-        TipoOrdem tipo = TipoOrdem.valueOf(JOptionPane.showInputDialog("Ordem : "));
+    public Ordem novaOrdem(Conta atual, Ativo ativo, int nAtivo){
+        // recebe as informacoes da ordem
+        TipoOrdem tipo = TipoOrdem.valueOf(JOptionPane.showInputDialog("Tipo : "));
         
+        BigDecimal valor;
         if(tipo.equals(TipoOrdem.ZERO)){
-            novo.setValues(qtd, ativo.getPrecoInicial(), ativo.getPrecoInicial().multiply(new BigDecimal(qtd)));
+            valor = ativo.getPrecoInicial();
         } else {
-            BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor: "));
-            
-            novo.setValues(qtd, valor, valor.multiply(new BigDecimal(qtd)));
+            valor = new BigDecimal(JOptionPane.showInputDialog("Valor : "));
         }
         
+        int qtd = Integer.parseInt(JOptionPane.showInputDialog("Quantidade : "));
         
-        novo.setConta(atual);
-        novo.setTicker(ativo.getTicker());
-        novo.setTypes(tipo, EstadoOrdem.TOTAL);
+        // verifica o saldo e a quantidade de ativos disponivel
+        if(atual.getSaldo().subtract(valor.multiply(BigDecimal.valueOf(qtd))).compareTo(BigDecimal.ZERO) >= 0){
+            if(tipo.equals(TipoOrdem.ZERO)){
+                // verifica se possui a quantidade necessaria para a compra do tipo ordem zero
+                if(ativo.getTotal() - qtd >= 0){
+                    Ordem novo = new Ordem();
+            
+                    novo.setConta(atual);
+                    novo.setTicker(ativo.getTicker());
+                    novo.setTypes(tipo, EstadoOrdem.TOTAL);
+                    novo.setValues(qtd, valor);
+                    
+                    JOptionPane.showMessageDialog(null, "Ordem Criada");
+            
+                    return novo;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nao possui essa quantidade de ativos disponivel");
+                }
+            } else {
+                Ordem novo = new Ordem();
+            
+                novo.setConta(atual);
+                novo.setTicker(ativo.getTicker());
+                novo.setTypes(tipo, EstadoOrdem.TOTAL);
+                novo.setValues(qtd, valor);
+                
+                if(tipo.equals(TipoOrdem.VENDA)){
+                    if(qtd <= nAtivo){
+                        JOptionPane.showMessageDialog(null, "Ordem Criada");
+                        return novo;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Nao possui essa quantidade de ativos disponivel");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ordem Criada");
+                    return novo;
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Saldo insuficiente");
+        }
         
-//        if(atual.getSaldo().subtract(novo.getValorTotal()).compareTo(BigDecimal.ZERO) == -1){
-//            novo = null;
-//        } 
-        
-        return novo;
+        return null;
     }
     
     public void verOrdem(String ordens){

@@ -7,7 +7,7 @@ package mvc.model.dao;
 
 import mvc.model.entities.Conta;
 import mvc.model.entities.Ordem;
-import mvc.model.entities.OrdemExecucao;
+import mvc.model.enums.EstadoOrdem;
 import mvc.model.enums.TipoOrdem;
 
 /**
@@ -22,41 +22,43 @@ public class OrdemDAO {
         
     }
     
-    public OrdemExecucao satisfaz(Ordem nova, AtivoContaDAO relacao){
-        if(nova.getTipo().equals(TipoOrdem.ZERO)){
-            OrdemExecucao ordemGerada = new OrdemExecucao();
-            ordemGerada.setOrdem(nova);
-            ordemGerada.setCompra(nova.getConta());
-            ordemGerada.setVenda(null);
-            return ordemGerada;
-        } else {
-            for(Ordem aux : ordem){
-            if(aux != null){
-                if(!(nova.getTipo().equals(aux.getTipo()))){
-                    if(nova.getTipo().equals(TipoOrdem.COMPRA)){
-                        if(nova.getValor().compareTo(aux.getValor()) >= 0){
-                            OrdemExecucao ordemGerada = new OrdemExecucao();
-                            ordemGerada.setOrdem(nova);
-                            ordemGerada.setCompra(nova.getConta());
-                            ordemGerada.setVenda(aux.getConta());
-                            return ordemGerada;
-                        } 
-                    } else if(nova.getTipo().equals(TipoOrdem.VENDA)){
-                        
-                        if(!(relacao.nAtivos(nova.getConta()) < nova.getQtd())){
-                            relacao.delete(nova.getTicker(), nova.getConta(), nova.getQtd());
-                            if(nova.getValor().compareTo(aux.getValor()) <= 0){
-                                OrdemExecucao ordemGerada = new OrdemExecucao();
-                                ordemGerada.setOrdem(nova);
-                                ordemGerada.setCompra(aux.getConta());
-                                ordemGerada.setVenda(nova.getConta());
-                                return ordemGerada;
+    // teste
+    public Ordem satisfaz(Ordem ordem){
+        if(ordem.getTipo().equals(TipoOrdem.COMPRA)){
+            for(Ordem aux : this.ordem){
+                if(aux != null){
+                    if(!(aux.getTipo().equals(ordem.getTipo()))){
+                        if(aux.getValor().compareTo(ordem.getValor()) <= 0){
+                            if(ordem.getQtd() - aux.getQtd() > 0){
+                                ordem.setTypes(EstadoOrdem.PARCIAL);
+                                aux.setTypes(EstadoOrdem.TOTAL);
+                            } else if(ordem.getQtd() - aux.getQtd() < 0){
+                                aux.setTypes(EstadoOrdem.PARCIAL);
+                                ordem.setTypes(EstadoOrdem.TOTAL);
+                            } else {
+                                aux.setTypes(EstadoOrdem.TOTAL);
+                                ordem.setTypes(EstadoOrdem.TOTAL);
                             }
+                            return aux;
                         }
                     }
                 }
             }
-        }
+        } else {
+            for(Ordem aux : this.ordem){
+                if(aux != null){
+                    if(!(aux.getTipo().equals(ordem.getTipo()))){
+                        if(aux.getValor().compareTo(ordem.getValor()) >= 0){
+                            if(ordem.getQtd() - aux.getQtd() > 0){
+                                ordem.setTypes(EstadoOrdem.PARCIAL);
+                            } else if(ordem.getQtd() - aux.getQtd() < 0){
+                                aux.setTypes(EstadoOrdem.PARCIAL);
+                            }
+                            return aux;
+                        }
+                    }
+                }
+            }
         }
         
         return null;
@@ -142,7 +144,7 @@ public class OrdemDAO {
     
     public void update(Ordem alvo, Ordem altera){
         if(!(this.vazio()) && alvo != null && altera != null){
-            alvo.setValues(altera.getQtd(), altera.getValor(), altera.getValorTotal());
+            alvo.setValues(altera.getQtd(), altera.getValor());
         }
     }
     

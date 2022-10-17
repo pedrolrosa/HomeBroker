@@ -27,6 +27,13 @@ public class AtivoDAO {
         return null;
     }
     
+    public Ativo busca(String ticker){
+        for(Ativo aux : ativo){
+            if(aux.getTicker().equals(ticker)) return aux;
+        }
+        return null;
+    }
+    
     public boolean vazio(){
         for(Ativo aux : ativo){
             if(aux != null) return false;
@@ -102,5 +109,16 @@ public class AtivoDAO {
             }
         }
         return false;
+    }
+    
+    public void subAtivo(String ticker, int qtd){
+        if(!(this.vazio())){
+            
+            for(int i =0; i < nAtivo; i++){
+                if(ativo[i] != null && ativo[i].getTicker().equals(ticker)){
+                    ativo[i].subTotal(qtd);
+                }
+            }
+        }
     }
 }

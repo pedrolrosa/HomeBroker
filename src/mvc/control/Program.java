@@ -16,6 +16,7 @@ import mvc.model.entities.Conta;
 import mvc.model.entities.Operacao;
 import mvc.model.entities.Ordem;
 import mvc.model.entities.OrdemExecucao;
+import mvc.model.enums.EstadoOrdem;
 import mvc.model.enums.MeioOperacao;
 import mvc.model.enums.TipoUsuario;
 import mvc.model.enums.TipoOrdem;
@@ -102,35 +103,52 @@ public class Program {
                         switch(esc){
                             // menu cliente
                             case 1:{
-                                // CRUD de cliente
+                                
                                 op = 1;
                                 while(op != 0){
+                                    // CRUD de cliente
                                     op = menu.telaADMCliente();
                                     
                                     switch(op){
+                                        // cria um novo cliente
                                         case 1:{
-                                            // criar cliente
+                                            // criar um novo objeto  da classe cliente
                                             Cliente novo = new Cliente();
+                                            
+                                            // inseri os dados no novo objeto
                                             menu.cadastraCliente(novo);
+                                            
+                                            // adiciona novo cliente no vetor de cliente DAO
                                             usuario.create(novo);
                                         break;}
 
+                                        // mostra todos os clientes registrados
                                         case 2:{
-                                            // ver clientes
+                                            // le o vetor de cliente DAO, mostrando todos os clientes registrados
                                             menu.verCliente(usuario.read());
                                         break;}
 
+                                        // altera um cliente existente
                                         case 3:{
-                                            // editar cliente pelo id
+                                            // mostra os clientes para escolher um para alterar
                                             menu.verCliente(usuario.read());
+                                            
+                                            // recebe o id do cliente escolhido que sera alterado
                                             final int id = menu.getId();
+                                            
+                                            // cria um 'ponteiro' para o objeto do cliete buscado pelo id na cliente DAO
                                             Cliente alvo = usuario.busca(id);
+                                            
+                                            // altera o objeto do cliente pelo cliente DAO
                                             usuario.update(alvo, menu.atualizarCliente(alvo));
                                         break;}
 
+                                        // exclui um cliente existente
                                         case 4:{
-                                            // excluir cliente pelo id
+                                            // mostra os clientes para escolher um para excluir
                                             menu.verCliente(usuario.read());
+                                            
+                                            // recebe e passa o id do cliete que sera excluido como parametro do metodo de exclusao do cliete DAO
                                             menu.excluirCliente(usuario.delete(menu.getId()));
                                         break;}
 
@@ -142,35 +160,52 @@ public class Program {
                             break;}
                             
                             case 2:{
-                                // CRUD de ativo
+                                
                                 op = 1;
                                 while(op != 0){
+                                    // CRUD de ativo
                                     op = menu.telaADMAtivo();
                                     
                                     switch(op){
-                                        // criar ativo
+                                        // criar um novo ativo
                                         case 1:{
+                                            // criar um novo objeto  da classe ativo
                                             Ativo novo = new Ativo();
+                                            
+                                            // inseri os dados no novo objeto
                                             menu.cadastraAtivo(novo);
+                                            
+                                            // adiciona novo ativo no vetor de ativo DAO
                                             ativo.create(novo);
                                         break;}
 
-                                        // ver ativos
+                                        // mostra todos os ativos registrados
                                         case 2:{
+                                            // le o vetor de ativo DAO, mostrando todos os ativos registrados
                                             menu.verAtivo(ativo.read());
                                         break;}
 
-                                        // editar ativo pelo id
+                                        // altera um ativo existente
                                         case 3:{
+                                            // mostra os ativos para escolher um para alterar
                                             menu.verAtivo(ativo.read());
+                                            
+                                            // recebe o id do ativo escolhido que sera alterado
                                             final int id = menu.getId();
+                                            
+                                            // cria um 'ponteiro' para o objeto do ativo buscado pelo id na ativo DAO
                                             Ativo alvo = ativo.busca(id);
+                                            
+                                            // altera o objeto do ativo pelo cliente DAO
                                             ativo.update(alvo, menu.atualizarAtivo(alvo));
                                         break;}
 
-                                        // excluir ativo pelo id
+                                        // exclui um ativo existente
                                         case 4:{
+                                            // mostra os clientes para escolher um para excluir
                                             menu.verAtivo(ativo.read());
+                                            
+                                            // recebe e passa o id do cliete que sera excluido como parametro do metodo de exclusao do cliete DAO
                                             menu.excluirAtivo(ativo.delete(menu.getId()));
                                         break;}
 
@@ -183,9 +218,16 @@ public class Program {
                             
                             // pagar dividendos
                             case 3:{
+                                // mostra os ativos para escolher um do ativo DAO
                                 menu.verAtivo(ativo.read());
+                                
+                                // recebe o id do ativo escolhido
                                 final int id = menu.getId();
+                                
+                                // recebe o valor que sera pago para as contas que possuem o ativo
                                 BigDecimal valor = menu.setValor();
+                                
+                                // executa o metodo pagarDividendos com os parametros do id do ativo e o valor que sera pago a conta
                                 relacaoAtivoConta.pagarDividendos(id, valor);
                             break;}
                         }
@@ -218,18 +260,23 @@ public class Program {
                                                         case 1:{
                                                             op = 1;
                                                             while(op != 0){
+                                                                // CRUD de operacao na conta
                                                                 op = menu.telaCOMUMOperacao();
                                                                 
                                                                 switch(op){
                                                                     //deposito
                                                                     case 1:{
+                                                                        // cria um objeto novo de operacao
                                                                         Operacao novo = new Operacao();
+                                                                        
+                                                                        // recebe o valor do operacao
                                                                         BigDecimal valor = menu.setValor();
+                                                                        
+                                                                        // inseri o valor ao novo objeo
                                                                         novo.setInfo(valor);
                                                                         
-                                                                        boolean verifica = menu.operacaoRealizada(conta.deposito(contaAtual, valor));
-                                                                        
-                                                                        if(verifica){
+                                                                        // se a operacao for realizada, ela sera cadastrada no vetor de operacao DAO
+                                                                        if(menu.operacaoRealizada(conta.deposito(contaAtual, valor))){
                                                                             menu.novaOperacao(novo, MeioOperacao.DEPOSITO, null, contaAtual);
                                                                             operacao.create(novo);
                                                                         }
@@ -237,10 +284,16 @@ public class Program {
                                                                     
                                                                     //saque
                                                                     case 2:{
+                                                                        // cria um objeto novo de operacao
                                                                         Operacao novo = new Operacao();
+                                                                        
+                                                                        // recebe o valor do operacao
                                                                         BigDecimal valor = menu.setValor();
+                                                                        
+                                                                        // inseri o valor ao novo objeo
                                                                         novo.setInfo(valor);
                                                                         
+                                                                        // se a operacao for realizada, ela sera cadastrada no vetor de operacao DAO
                                                                         if(menu.operacaoRealizada(conta.saque(contaAtual, valor))){
                                                                             menu.novaOperacao(novo, MeioOperacao.SAQUE, contaAtual, null);
                                                                             operacao.create(novo);
@@ -249,10 +302,16 @@ public class Program {
                                                                     
                                                                     //pagamento
                                                                     case 3:{
+                                                                        // cria um objeto novo de operacao
                                                                         Operacao novo = new Operacao();
+                                                                        
+                                                                        // recebe o valor do operacao
                                                                         BigDecimal valor = menu.setValor();
+                                                                        
+                                                                        // inseri o valor ao novo objeo
                                                                         novo.setInfo(valor);
                                                                         
+                                                                        // se a operacao for realizada, ela sera cadastrada no vetor de operacao DAO
                                                                         if(menu.operacaoRealizada(conta.pagamento(contaAtual, valor))){
                                                                             menu.novaOperacao(novo, MeioOperacao.PAGAMENTO, contaAtual, conta.adm());
                                                                             operacao.create(novo);
@@ -261,23 +320,36 @@ public class Program {
                                                                     
                                                                     //transferencia
                                                                     case 4:{
+                                                                        // cria um objeto novo de operacao
                                                                         Operacao novo = new Operacao();
+                                                                        
+                                                                        // recebe o valor do operacao
                                                                         BigDecimal valor = menu.setValor();
+                                                                        
+                                                                        // inseri o valor ao novo objeo
                                                                         novo.setInfo(valor);
                                                                         
+                                                                        //mostra as contas existentes para escolher uma conta de destino para realizar a transferencia
                                                                         menu.verConta(conta.read());
+                                                                        
+                                                                        // recebe o id da conta de destino
                                                                         final int id = menu.getId();
                                                                         
-                                                                        if(contaAtual.getId() != id)
-                                                                        
-                                                                        if(menu.operacaoRealizada(conta.transferencia(contaAtual, id, valor))){
-                                                                            menu.novaOperacao(novo, MeioOperacao.TRANSFERENCIA, contaAtual, conta.busca(id));
-                                                                            operacao.create(novo);
+                                                                        // verfica se a conta de destino nao é a conta origem
+                                                                        if(contaAtual.getId() != id){
+                                                                            // se a operacao for realizada, ela sera cadastrada no vetor de operacao DAO
+                                                                            if(menu.operacaoRealizada(conta.transferencia(contaAtual, id, valor))){
+                                                                                menu.novaOperacao(novo, MeioOperacao.TRANSFERENCIA, contaAtual, conta.busca(id));
+                                                                                operacao.create(novo);
+                                                                            }
                                                                         }
+                                                                        
+                                                                        
                                                                     break;}
                                                                     
                                                                     //extrato
                                                                     case 5:{
+                                                                        // mostra todas as operacoes da conta atual
                                                                         menu.verOperacao(operacao.read(contaAtual));
                                                                     break;}
                                                                     
@@ -297,29 +369,129 @@ public class Program {
                                                                 switch(op){
                                                                     // gera uma nova ordem
                                                                     case 1:{
-                                                                        menu.verAtivo(ativo.read());
+                                                                        // verifica se existe ativos registrados
                                                                         if(!(ativo.vazio())){
-                                                                            Ordem novo = new Ordem();
-                                                                            Ativo alvo = ativo.busca(menu.getId());
-                                                                            novo = menu.novaOrdem(contaAtual, alvo, novo);
+                                                                            // mostra todos os ativos existentes
+                                                                            menu.verAtivo(ativo.read());
                                                                             
-                                                                            if(novo != null){
-                                                                                ordem.create(novo);
-                                                                                OrdemExecucao novaExecucao = ordem.satisfaz(novo, relacaoAtivoConta);
-                                                                                if(novaExecucao != null){
-                                                                                    ordemExecucao.create(novaExecucao);
-                                                                                    if(!(novo.getTipo().equals(TipoOrdem.ZERO))){
-                                                                                        novaExecucao.getVenda().entrada(novo.getValorTotal());
-                                                                                        novaExecucao.getCompra().retirada(novo.getValorTotal());
+                                                                            Ativo ativoAlvo = ativo.busca(menu.getTicker());
+                                                                            
+                                                                            // cria uma nova ordem
+                                                                            Ordem ordemNova = menu.novaOrdem(contaAtual, ativoAlvo, relacaoAtivoConta.nAtivos(contaAtual, ativoAlvo));
+                                                                            
+                                                                            // verifica se a ordem foi criada
+                                                                            if(ordemNova != null){
+                                                                                // verifica se a ordem é de tipo zero
+                                                                                if(ordemNova.getTipo().equals(TipoOrdem.ZERO)){
+                                                                                    
+                                                                                    // seta as informacoes para a execucao da ordem
+                                                                                    OrdemExecucao ordemExecutada = new OrdemExecucao();
+                                                                                    ordemExecutada.setOrdem(ordemNova);
+                                                                                    ordemExecutada.setCompra(contaAtual);
+                                                                                    ordemExecutada.setVenda(bolsa);
+                                                                                    
+                                                                                    // seta a relacao do ativo com a conta que o possui
+                                                                                    AtivoConta relacaoZero = new AtivoConta();
+                                                                                    relacaoZero.setAtivo(ativo.busca(ordemNova.getTicker()));
+                                                                                    relacaoZero.setConta(ordemNova.getConta());
+                                                                                    
+                                                                                    // a conta compradora paga o valor total da ordem
+                                                                                    contaAtual.retirada(ordemNova.getValorTotal());
+                                                                                    
+                                                                                    // remove os ativos vendidos para a conta, do vetor de ativos existentes 
+                                                                                    ativo.subAtivo(ordemNova.getTicker(), ordemNova.getQtd());
+                                                                                    
+                                                                                    // adiciona a relacao do ativo com a conta ao registro
+                                                                                    relacaoAtivoConta.create(relacaoZero, ordemNova.getQtd());
+                                                                                    
+                                                                                    // adiciona o registro da ordem ja executada
+                                                                                    ordemExecucao.create(ordemExecutada);
+                                                                                } else {
+                                                                                    ordem.create(ordemNova);
+                                                                                    Ordem satisfaz = ordem.satisfaz(ordemNova);
+                                                                                    
+                                                                                    // verifica se existe uma ordem que satisfaça a nova ordem
+                                                                                    if(satisfaz != null){
+                                                                                        OrdemExecucao ordemExecutada = new OrdemExecucao();
+                                                                                        
+                                                                                        AtivoConta relacaoOrdem = new AtivoConta();
+                                                                                        relacaoOrdem.setAtivo(ativo.busca(ordemNova.getTicker()));
+                                                                                        
+                                                                                        if(ordemNova.getTipo().equals(TipoOrdem.COMPRA)){
+                                                                                            // seta as informacoes para a execucao da ordem
+                                                                                            ordemExecutada.setCompra(ordemNova.getConta());
+                                                                                            ordemExecutada.setVenda(satisfaz.getConta());
+                                                                                            ordemExecutada.setOrdem(ordemNova);
+                                                                                            
+                                                                                            relacaoOrdem.setConta(ordemNova.getConta());
+                                                                                            
+                                                                                            // compra a quantidade para a conta compradora
+                                                                                            if(ordemNova.getEstado().equals(EstadoOrdem.TOTAL)){
+                                                                                                relacaoAtivoConta.create(relacaoOrdem, ordemNova.getQtd());
+                                                                                                ordemExecutada.setQuantidade(ordemNova.getQtd());
+                                                                                                ordemNova.getConta().retirada(ordemNova.getValorTotal());
+                                                                                                satisfaz.getConta().entrada(ordemNova.getValorTotal());
+                                                                                            } else {
+                                                                                                relacaoAtivoConta.create(relacaoOrdem, satisfaz.getQtd());
+                                                                                                ordemExecutada.setQuantidade(satisfaz.getQtd());
+                                                                                                ordemNova.getConta().retirada(satisfaz.getValorTotal());
+                                                                                                satisfaz.getConta().entrada(satisfaz.getValorTotal());
+                                                                                                
+                                                                                                // ajusta a quantidade de ativos que estao na ordem parcial
+                                                                                                ordemNova.subQtd(satisfaz.getQtd());
+                                                                                            }
+                                                                                            
+                                                                                            // vende a quantidade na conta vendedora
+                                                                                            if(satisfaz.getEstado().equals(EstadoOrdem.TOTAL)){
+                                                                                                relacaoAtivoConta.delete(ordemNova.getTicker(), satisfaz.getConta(), satisfaz.getQtd());
+                                                                                            } else {
+                                                                                                relacaoAtivoConta.delete(ordemNova.getTicker(), satisfaz.getConta(), ordemNova.getQtd());
+                                                                                                
+                                                                                                // ajusta a quantidade de ativos que estao na ordem parcial
+                                                                                                satisfaz.subQtd(ordemNova.getQtd());
+                                                                                            }
+                                                                                            
+                                                                                        } else {
+                                                                                            // seta as informacoes para a execucao da ordem
+                                                                                            ordemExecutada.setCompra(satisfaz.getConta());
+                                                                                            ordemExecutada.setVenda(ordemNova.getConta());
+                                                                                            ordemExecutada.setOrdem(ordemNova);
+                                                                                            
+                                                                                            relacaoOrdem.setConta(satisfaz.getConta());
+                                                                                            
+                                                                                            if(satisfaz.getEstado().equals(EstadoOrdem.TOTAL)){
+                                                                                                relacaoAtivoConta.create(relacaoOrdem, satisfaz.getQtd());
+                                                                                                ordemExecutada.setQuantidade(satisfaz.getQtd());
+                                                                                                satisfaz.getConta().retirada(satisfaz.getValorTotal());
+                                                                                                ordemNova.getConta().entrada(satisfaz.getValorTotal());
+                                                                                            } else {
+                                                                                                relacaoAtivoConta.create(relacaoOrdem, ordemNova.getQtd());
+                                                                                                ordemExecutada.setQuantidade(ordemNova.getQtd());
+                                                                                                satisfaz.getConta().retirada(ordemNova.getValorTotal());
+                                                                                                ordemNova.getConta().entrada(ordemNova.getValorTotal());
+                                                                                                
+                                                                                                // ajusta a quantidade de ativos que estao na ordem parcial
+                                                                                                satisfaz.subQtd(ordemNova.getQtd());
+                                                                                            }
+                                                                                            
+                                                                                            if(ordemNova.getEstado().equals(EstadoOrdem.TOTAL)){
+                                                                                                relacaoAtivoConta.delete(ordemNova.getTicker(), ordemNova.getConta(), ordemNova.getQtd());
+                                                                                            } else {
+                                                                                                relacaoAtivoConta.delete(ordemNova.getTicker(), ordemNova.getConta(), satisfaz.getQtd());
+                                                                                                
+                                                                                                // ajusta a quantidade de ativos que estao na ordem parcial
+                                                                                                ordemNova.subQtd(satisfaz.getQtd());
+                                                                                            }
+                                                                                        }
+                                                                                        
+                                                                                        // registra a ordem executada
+                                                                                        ordemExecucao.create(ordemExecutada);
+                                                                                        
+                                                                                        // deleta as ordens que forem satisfeitas 
+                                                                                        if(ordemNova.getEstado().equals(EstadoOrdem.TOTAL)) ordem.delete(ordemNova);
+                                                                                        if(satisfaz.getEstado().equals(EstadoOrdem.TOTAL)) ordem.delete(satisfaz);
                                                                                     }
-                                                                                    
-                                                                                    AtivoConta relacao = new AtivoConta();
-                                                                                    menu.gerarRelacaoAtivoConta(contaAtual, alvo, relacao);
-                                                                                    
-                                                                                    relacaoAtivoConta.create(relacao, novo.getQtd());
-                                                                                    menu.operacaoRealizada(ordem.delete(novo));
                                                                                 }
-                                                                                
                                                                             }
                                                                         }
                                                                     break;}
@@ -364,34 +536,56 @@ public class Program {
                                         
                                         // CRUD de conta do cliente logado 
                                         
+                                        // criar conta
                                         case 2:{
-                                            // criar conta
+                                            // cria um novo objeto conta
                                             Conta novo = new Conta();
+                                            
+                                            // registra o titular no novo objeto
                                             menu.cadastraConta(atual, novo);
+                                            
+                                            // registra a nova conta do vetor de conta DAO
                                             conta.create(novo);
+                                            
+                                            // a conta atual do usuario logado passa a ser a conta que acabou de ser criada
                                             contaAtual = novo;
                                         break;}
                                         
+                                        // trocar conta pelo id
                                         case 3:{
-                                            // trocar conta pelo id
+                                            // mostra as contas do cliente logado
                                             menu.verConta(conta.read(atual));
+                                            
+                                            // se o usuario possuir conta registrada, sera mostrado todas as contas dele e o mesmo passara o id da conta para qual sera trocada
                                             if(!(conta.vazio(atual)))contaAtual = conta.busca(menu.trocaConta(atual));
                                         break;}
                                         
+                                        // ver contas
                                         case 4:{
-                                            // ver contas
+                                            // mostra as contas do cliente logado
                                             menu.verConta(conta.read(atual));
                                         break;}
                                         
+                                        // excluir conta pelo id
                                         case 5:{
-                                            // excluir conta pelo id
+                                            // mostra as contas do cliente logado
                                             menu.verConta(conta.read(atual));
+                                            
+                                            // inicializa um objeto Integer chamado id para receber o id da conta que sera excluida futuramente
                                             Integer id = null;
+                                            
+                                            // verifica se o cliente logado possui conta
                                             if(!(conta.vazio(atual))){
+                                                // se possuir ele informa o id da conta que sera excluida
                                                 id = menu.getId();
+                                                
+                                                // valida se a conta foi excluida ou nao, executando o metodo de exclusao como parametro
                                                 menu.excluirConta(conta.delete(id));
                                             }
+                                            
+                                            // se ele trocou a conta, ele alterou o valor do objeo id e entao entrara no if
                                             if(id != null){
+                                                // verifica se a conta excluida foi a atual, se sim, o cliente entrara automaticamente em outra conta, caso ele possui
                                                 if(contaAtual.getId() == id) contaAtual = conta.busca(atual);
                                             }
                                         break;}
@@ -401,14 +595,6 @@ public class Program {
                                         break;
                                     }
                                 }
-                            break;}
-                            
-                            case 2:{
-                                
-                            break;}
-                            
-                            case 3:{
-                                
                             break;}
                             
                             default:

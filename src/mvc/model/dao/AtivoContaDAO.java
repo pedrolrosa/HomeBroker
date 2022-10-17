@@ -32,6 +32,18 @@ public class AtivoContaDAO {
         return cont;
     }
     
+    public int nAtivos(Conta atual, Ativo alvo){
+        int cont = 0;
+        for(AtivoConta aux : relacao){
+            if(aux != null){
+                if(aux.getConta().equals(atual)){
+                    if(aux.getAtivo().equals(alvo)) cont++;
+                }
+            }
+        }
+        return cont;
+    }
+    
     public void pagarDividendos(int id, BigDecimal valor){
         for(AtivoConta aux : relacao){
             if(aux != null){
@@ -125,6 +137,7 @@ public class AtivoContaDAO {
         }
     }
     
+    // teste
     public void delete(String ticker, Conta dono, int qtd){
         if(!(this.vazio())){
             for(int i =0, cont = 1; i < nAtivoConta && cont <= qtd; i++, cont++){

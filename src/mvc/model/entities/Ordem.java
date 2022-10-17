@@ -84,10 +84,19 @@ public class Ordem {
         this.estado = estado;
     }
     
-    public void setValues(int qtd, BigDecimal valor, BigDecimal valorTotal){
+    public void setTypes(EstadoOrdem estado){
+        this.estado = estado;
+    }
+    
+    public void setValues(int qtd, BigDecimal valor){
         this.qtd = qtd;
         this.valor = valor;
-        this.valorTotal = valorTotal;
+        this.valorTotal = valor.multiply(BigDecimal.valueOf(qtd));
+    }
+    
+    public void subQtd(int qtd){
+        this.qtd -= qtd;
+        this.valorTotal = this.valor.multiply(BigDecimal.valueOf(this.qtd));
     }
 
     @Override
