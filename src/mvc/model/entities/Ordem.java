@@ -155,7 +155,7 @@ public class Ordem {
 
     @Override
     public String toString() {
-        return "Ordem{" + "id=" + id + ", conta=" + conta + ", tipo=" + tipo + ", estado=" + estado + ", ticker=" + ticker + ", qtd=" + qtd + ", valor=" + valor + ", valorTotal=" + valorTotal + ", data=" + data + '}';
+        return "Ticker: "+ this.ticker +" | Valor: "+ this.valor +" | Quantidade: "+ this.qtd +"\nEstado: "+ this.estado.name() + " | Tipo: "+ this.tipo.name() +"\n   -------------------    ";
     }
     
 }

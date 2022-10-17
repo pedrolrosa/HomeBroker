@@ -100,30 +100,45 @@ public class AtivoContaDAO {
     public String read(Conta atual){
         if(!(this.vazio())){
             StringBuilder result = new StringBuilder("");
+            int tam = 10;
             
-            for(AtivoConta aux : relacao){
-                if(aux != null) {
-                    if(aux.getConta().equals(atual))
-                        result.append(aux.toString()).append("\n");
+            String[] ativos = new String[tam];
+            Integer[] cont = new Integer[tam];
+            
+            for(int i =0; i < nAtivoConta; i++){
+                if(relacao[i] != null){
+                    if(relacao[i].getConta().equals(atual)){
+                        boolean existe = false;
+                        
+                        for(int j =0; j < tam; j++){
+                            if(ativos[j] != null){
+                                if(ativos[j].equals(relacao[i].getAtivo().getTicker())){
+                                    existe = true;
+                                    cont[j]++;
+                                }
+                            }
+                        }
+                        
+                        if(existe == false){
+                            for(int j =0; j < tam; j++){
+                                if(ativos[j] == null){
+                                    ativos[j] = relacao[i].getAtivo().getTicker();
+                                    cont[j] = 1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            //System.out.println(result);
-            return result.toString();
-        } else {
-            return "Nenhum ativo existente na conta";
-        }
-    }
-    
-    public String read(Ativo alvo){
-        if(!(this.vazio())){
-            StringBuilder result = new StringBuilder("");
             
-            for(AtivoConta aux : relacao){
-                if(aux != null) {
-                    if(aux.getAtivo().equals(alvo))
-                        result.append(aux.toString()).append("\n");
+            // monta a relacao de ativos
+            for(int i =0; i < tam; i++){
+                if(ativos[i] != null){
+                    result.append("Ativo : ").append(ativos[i]).append(" | Quantidade : ").append(cont[i]).append("\n");
                 }
             }
+            
             //System.out.println(result);
             return result.toString();
         } else {

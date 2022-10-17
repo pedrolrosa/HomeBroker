@@ -1,7 +1,9 @@
 package mvc.control;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import mvc.model.dao.AtivoContaDAO;
 import mvc.model.dao.AtivoDAO;
 import mvc.model.dao.ClienteDAO;
@@ -36,7 +38,7 @@ public class Program {
     
     private GUI menu = new GUI();
     
-    private LocalDateTime data = LocalDateTime.now();
+    private Calendar cal = Calendar.getInstance();
         
     public Program(){
         
@@ -64,6 +66,10 @@ public class Program {
         
         int esc, op;
         boolean on = true;
+        
+        cal.setTime(new Date());
+        
+        System.out.println(cal.toString());
         
         while(on){
             // inicializa o programa pedindo login ou para sair
