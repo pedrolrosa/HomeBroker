@@ -134,7 +134,22 @@ public class Operacao {
 
     @Override
     public String toString() {
-        return "Operacao{" + "id=" + id + ", valor=" + valor + ", meio=" + meio + ", tipo=" + tipo + ", descricao=" + descricao + ", data=" + data + ", origem=" + origem + ", destino=" + destino + '}';
-    }
+        String nomeOrigem = null;
+        if(origem != null){
+            nomeOrigem = origem.getTitular().getNome();}
 
+        String nomeDestino = null; 
+        if(destino != null){
+            nomeDestino = destino.getTitular().getNome();} 
+
+        return "--------OPERAÇÃO--------{" 
+                + "\n id=" + id 
+                + "\n valor=" + valor 
+                + "\n meio=" + meio 
+                + "\n tipo=" + tipo 
+                + "\n descricao=" + descricao 
+                + "\n data=" + data 
+                + "\n origem=" + nomeOrigem 
+                + "\n destino=" + nomeDestino;
+    }
 }

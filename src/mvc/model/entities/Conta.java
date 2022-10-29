@@ -120,6 +120,20 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "Conta{" + "id=" + id + ", saldo=" + saldo + ", limite=" + limite + ", fatura=" + fatura + ", data=" + data + ", titular=" + titular + '}';
+
+        String nomeTitular = null; 
+
+        if(titular != null){
+
+          nomeTitular = titular.getNome(); 
+        }
+
+        return "--------CONTA-------" 
+                + "\n id:" + id 
+                + "\n saldo:" + saldo 
+                + "\n limite:" + limite 
+                + "\n fatura=" + fatura 
+                + "\n data=" + data 
+                + "\n titular=" + nomeTitular;
     }
 }

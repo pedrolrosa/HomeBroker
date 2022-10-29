@@ -135,6 +135,15 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", cpf=" + cpf + ", telefone=" + telefone + ", login=" + login + ", senha=" + senha + ", tipo=" + tipo + ", data=" + data + '}';
+        return "Cliente{" 
+                + "id=" + id 
+                + "nome=" + nome 
+                + "endereco=" + endereco 
+                + "cpf=" + cpf 
+                + "telefone=" + telefone 
+                + "login=" + login 
+                + "senha=" + senha 
+                + "tipo=" + tipo 
+                + "data=" + data;
     }
 }

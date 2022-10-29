@@ -13,12 +13,14 @@
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/control/Program.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/entities/Ordem.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/dao/OrdemExecucaoDAO.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/dao/OperacaoDAO.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/entities/Conta.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/dao/ClienteDAO.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/dao/ContaDAO.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/view/GUI.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/dao/AtivoDAO.java</file>
             <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/dao/OrdemDAO.java</file>
+            <file>file:/C:/Users/pedro/OneDrive/Documentos/poo/HomeBroker-main/src/mvc/model/entities/Data.java</file>
         </group>
     </open-files>
 </project-private>

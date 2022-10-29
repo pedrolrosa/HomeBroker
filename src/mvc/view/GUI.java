@@ -6,6 +6,7 @@
 package mvc.view;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import mvc.model.entities.Ativo;
 import mvc.model.entities.AtivoConta;
@@ -58,6 +59,10 @@ public class GUI {
         return ticker;
     }
     
+    public long getDays(LocalDate data){
+        return Long.parseLong(JOptionPane.showInputDialog("Data: "+ data +"Quantos dias deseja passar ? "));
+    }
+    
     public BigDecimal setValor(){
         final BigDecimal valor = new BigDecimal(JOptionPane.showInputDialog("Valor : "));
         
@@ -65,7 +70,7 @@ public class GUI {
     }
     
     public Integer telaADM(){
-        return Integer.parseInt(JOptionPane.showInputDialog("1 - Menu Cliente\n2 - Menu Ativo\n3 - Pagar Dividendos\n0 - Voltar\nSua escolha: "));
+        return Integer.parseInt(JOptionPane.showInputDialog("1 - Menu Cliente\n2 - Menu Ativo\n3 - Pagar Dividendos\n4 - Manipular Data\n0 - Voltar\nSua escolha: "));
     }
     
     public Integer telaADMCliente(){

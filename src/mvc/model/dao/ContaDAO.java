@@ -185,4 +185,13 @@ public class ContaDAO {
         }
         return false;
     }
+    
+    public void imposto(){
+        if(!(this.vazio())){
+            
+            for(Conta aux : conta){
+                aux.retirada(new BigDecimal(15));
+            }
+        }
+    }
 }
